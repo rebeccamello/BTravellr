@@ -8,16 +8,17 @@
 import UIKit
 
 class FirstSceneViewController: UIViewController {
-    var label: UILabel = UILabel()
+//    var label: UILabel = UILabel()
 
+    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var button: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
-        view.addSubview(label)
-        view.addSubview(button)
+//        view.addSubview(label)
+//        view.addSubview(button)
 //        button.addTarget(self, action: #selector(actNewTrip), for: .touchDown)
         setConstraints()
     }
