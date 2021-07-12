@@ -63,7 +63,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ota-W6-i5B">
-                                <rect key="frame" x="0.0" y="332" width="414" height="91"/>
+                                <rect key="frame" x="0.0" y="313" width="414" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="u0a-LA-Gch">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="93"/>
@@ -81,8 +81,8 @@
                             <constraint firstItem="MuC-92-vu5" firstAttribute="bottom" secondItem="Hwj-f9-yEA" secondAttribute="bottom" constant="550" id="WAs-AV-g7J"/>
                             <constraint firstItem="Hwj-f9-yEA" firstAttribute="leading" secondItem="MuC-92-vu5" secondAttribute="leading" id="XVD-l3-3wh"/>
                             <constraint firstItem="Ota-W6-i5B" firstAttribute="leading" secondItem="MuC-92-vu5" secondAttribute="leading" id="aeO-2l-dE2"/>
-                            <constraint firstItem="Ota-W6-i5B" firstAttribute="top" secondItem="Hwj-f9-yEA" secondAttribute="bottom" constant="69" id="fT0-hj-F7q"/>
-                            <constraint firstItem="MuC-92-vu5" firstAttribute="bottom" secondItem="Ota-W6-i5B" secondAttribute="bottom" constant="390" id="qbS-TF-171"/>
+                            <constraint firstItem="Ota-W6-i5B" firstAttribute="top" secondItem="Hwj-f9-yEA" secondAttribute="bottom" constant="50" id="fT0-hj-F7q"/>
+                            <constraint firstItem="MuC-92-vu5" firstAttribute="bottom" secondItem="Ota-W6-i5B" secondAttribute="bottom" constant="410" id="qbS-TF-171"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Nova Viagem" largeTitleDisplayMode="always" id="H62-tG-qOC">
