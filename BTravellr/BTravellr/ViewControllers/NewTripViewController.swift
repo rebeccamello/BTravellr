@@ -9,11 +9,16 @@ import UIKit
 
 class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     let textos = ["Nome", "Destino"]
-    let tbl: UITableView = {
-            let v = UITableView(frame: .zero, style: .plain)
-            v.translatesAutoresizingMaskIntoConstraints = false
-            return v
-        }()
+    let text2 = ["Ida", "Volta"]
+    
+    @IBOutlet weak var tbl: UITableView!
+    @IBOutlet weak var tbl2: UITableView!
+    
+    //    let tbl: UITableView = {
+//            let v = UITableView(frame: .zero, style: .plain)
+//            v.translatesAutoresizingMaskIntoConstraints = false
+//            return v
+//        }()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
@@ -21,7 +26,6 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId")!
-
         cell.textLabel?.text = textos[indexPath.row]
         cell.textLabel?.textColor = .gray
         return cell
@@ -32,16 +36,19 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
     
-        view.addSubview(tbl)
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(),  metrics: nil, views: ["v0" : tbl]))
-
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : tbl]))
+//        view.addSubview(tbl)
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(),  metrics: nil, views: ["v0" : tbl]))
+//
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : tbl]))
         tbl.delegate = self
         tbl.dataSource = self
         tbl.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        setConstraints()
+        tbl2.delegate = self
+        tbl2.dataSource = self
+        tbl2.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+//        setConstraints()
     }
     func setConstraints(){
-        tbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+//        tbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     }
 }

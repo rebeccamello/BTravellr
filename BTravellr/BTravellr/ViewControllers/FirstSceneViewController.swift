@@ -33,7 +33,7 @@ class FirstSceneViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 240).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 18
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 45).isActive = true
         button.setTitle("Adicionar", for: .normal)
