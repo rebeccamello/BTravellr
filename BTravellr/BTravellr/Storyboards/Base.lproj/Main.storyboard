@@ -108,7 +108,7 @@
                             <constraint firstItem="Ota-W6-i5B" firstAttribute="leading" secondItem="MuC-92-vu5" secondAttribute="leading" id="aeO-2l-dE2"/>
                             <constraint firstItem="Hwj-f9-yEA" firstAttribute="top" secondItem="LER-oj-EWe" secondAttribute="bottom" constant="30" id="eER-Pv-eQj"/>
                             <constraint firstItem="LER-oj-EWe" firstAttribute="leading" secondItem="MuC-92-vu5" secondAttribute="leading" id="mhx-jh-vTy"/>
-                            <constraint firstItem="MuC-92-vu5" firstAttribute="bottom" secondItem="Ota-W6-i5B" secondAttribute="bottom" constant="420" id="qbS-TF-171"/>
+                            <constraint firstItem="MuC-92-vu5" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Ota-W6-i5B" secondAttribute="bottom" constant="420" id="qbS-TF-171"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vsQ-GZ-I2W"/>
@@ -167,7 +167,7 @@
                                 </constraints>
                                 <state key="normal" backgroundImage="plus" catalog="system"/>
                                 <connections>
-                                    <segue destination="Zmo-PH-ioF" kind="show" id="mJz-mc-0hm"/>
+                                    <segue destination="Zmo-PH-ioF" kind="show" id="XRC-xr-tuS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnK-TV-Tlp">
