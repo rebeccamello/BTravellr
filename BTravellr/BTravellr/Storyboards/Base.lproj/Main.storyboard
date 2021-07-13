@@ -171,7 +171,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AnK-TV-Tlp">
-                                <rect key="frame" x="100" y="517.5" width="214" height="30"/>
+                                <rect key="frame" x="50" y="517.5" width="314" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="Zmo-PH-ioF" kind="show" id="JJl-w9-pCK"/>
@@ -187,13 +187,13 @@
                         <viewLayoutGuide key="safeArea" id="Afa-6L-MC8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" secondItem="AnK-TV-Tlp" secondAttribute="trailing" constant="100" id="2mJ-LJ-ei3"/>
+                            <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" secondItem="AnK-TV-Tlp" secondAttribute="trailing" constant="50" id="2mJ-LJ-ei3"/>
                             <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" secondItem="gSI-PX-ihB" secondAttribute="trailing" constant="25" id="FFc-GX-oEB"/>
                             <constraint firstItem="97H-cG-szH" firstAttribute="centerY" secondItem="61R-vx-iF5" secondAttribute="centerY" constant="-20" id="Op4-uk-unI"/>
                             <constraint firstItem="97H-cG-szH" firstAttribute="centerX" secondItem="61R-vx-iF5" secondAttribute="centerX" id="Qc5-n5-2sW"/>
                             <constraint firstItem="qa5-Zj-gw1" firstAttribute="top" secondItem="Afa-6L-MC8" secondAttribute="top" constant="69" id="Xw2-mN-Rso"/>
                             <constraint firstItem="gSI-PX-ihB" firstAttribute="top" secondItem="61R-vx-iF5" secondAttribute="top" constant="70" id="aWg-wR-x2L"/>
-                            <constraint firstItem="AnK-TV-Tlp" firstAttribute="leading" secondItem="Afa-6L-MC8" secondAttribute="leading" constant="100" id="c5A-1I-Eow"/>
+                            <constraint firstItem="AnK-TV-Tlp" firstAttribute="leading" secondItem="Afa-6L-MC8" secondAttribute="leading" constant="50" id="c5A-1I-Eow"/>
                             <constraint firstItem="AnK-TV-Tlp" firstAttribute="top" secondItem="97H-cG-szH" secondAttribute="bottom" constant="79" id="eoS-mZ-xX7"/>
                             <constraint firstItem="qa5-Zj-gw1" firstAttribute="leading" secondItem="Afa-6L-MC8" secondAttribute="leading" constant="20" id="sTA-WQ-nUT"/>
                         </constraints>

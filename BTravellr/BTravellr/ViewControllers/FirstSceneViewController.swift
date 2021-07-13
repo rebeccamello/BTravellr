@@ -32,11 +32,13 @@ class FirstSceneViewController: UIViewController {
         
         //botao
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.layer.cornerRadius = 18
+        button.widthAnchor.constraint(equalToConstant: 330).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.layer.cornerRadius = 15
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 45).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 80).isActive = true
+        button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
         button.setTitle("Adicionar", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .highlighted)
