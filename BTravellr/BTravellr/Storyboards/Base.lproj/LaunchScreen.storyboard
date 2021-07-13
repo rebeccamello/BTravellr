@@ -48,6 +48,6 @@
     <resources>
         <image name="Aviao1" width="301" height="127"/>
         <image name="Caminho 2" width="263" height="81"/>
-        <image name="Logo" width="270" height="270"/>
+        <image name="Logo" width="540" height="540"/>
     </resources>
 </document>

@@ -88,6 +88,7 @@
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="C1E-AI-C2Y">
                                                 <rect key="frame" x="302" y="13" width="92" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="Salvar"/>
                                             </button>
                                         </barButtonItem>
@@ -150,9 +151,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minhas Viagens" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qa5-Zj-gw1">
-                                <rect key="frame" x="20" y="113" width="300" height="37"/>
+                                <rect key="frame" x="20" y="113" width="232.5" height="37"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="2SX-nt-mjf"/>
                                     <constraint firstAttribute="height" constant="37" id="6PA-ec-boH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="31"/>
@@ -187,6 +187,7 @@
                         <viewLayoutGuide key="safeArea" id="Afa-6L-MC8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qa5-Zj-gw1" secondAttribute="trailing" symbolic="YES" id="0eT-EN-aWP"/>
                             <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" secondItem="AnK-TV-Tlp" secondAttribute="trailing" constant="50" id="2mJ-LJ-ei3"/>
                             <constraint firstItem="Afa-6L-MC8" firstAttribute="trailing" secondItem="gSI-PX-ihB" secondAttribute="trailing" constant="25" id="FFc-GX-oEB"/>
                             <constraint firstItem="97H-cG-szH" firstAttribute="centerY" secondItem="61R-vx-iF5" secondAttribute="centerY" constant="-20" id="Op4-uk-unI"/>
