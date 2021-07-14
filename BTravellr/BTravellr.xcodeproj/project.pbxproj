@@ -16,6 +16,7 @@
 		9DE6F5DB269C92170027438C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D9269C92170027438C /* LaunchScreen.storyboard */; };
 		9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */; };
 		9DE6F5ED269E2F740027438C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5EC269E2F730027438C /* TextFieldTableViewCell.swift */; };
+		9DE6F5EF269E55AA0027438C /* TesteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5EE269E55AA0027438C /* TesteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9DE6F5DC269C92170027438C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 		9DE6F5EC269E2F730027438C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextFieldTableViewCell.swift; path = Storyboards/TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		9DE6F5EE269E55AA0027438C /* TesteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TesteViewController.swift; path = BTravellr/Storyboards/TesteViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		9DE6F5E6269CB13E0027438C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9DE6F5EE269E55AA0027438C /* TesteViewController.swift */,
 				9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */,
 				9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */,
 			);
@@ -164,6 +167,7 @@
 			files = (
 				9DE6F5D6269C92160027438C /* BTravellr.xcdatamodeld in Sources */,
 				9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */,
+				9DE6F5EF269E55AA0027438C /* TesteViewController.swift in Sources */,
 				9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */,
 				9DE6F5ED269E2F740027438C /* TextFieldTableViewCell.swift in Sources */,
 				9DE6F5CC269C92160027438C /* AppDelegate.swift in Sources */,
