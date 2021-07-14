@@ -33,7 +33,7 @@ class FirstSceneViewController: UIViewController {
         //botao
         button.translatesAutoresizingMaskIntoConstraints = false
         button.widthAnchor.constraint(equalToConstant: 330).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 45).isActive = true
         button.layer.cornerRadius = 15
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 45).isActive = true
