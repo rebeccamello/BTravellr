@@ -89,6 +89,9 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
         bikeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         bikeBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
         
+        boatBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+        boatBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+        
 //        boatBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
         
 //        tramBut.leftAnchor.constraint(equalTo: bikeBut.rightAnchor, constant: view.bounds.height*0.03).isActive = true
