@@ -52,6 +52,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         },
             TripOption(title: "Arquivos", icon: UIImage(systemName: "folder.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
         },
+            TripOption(title: "Anotações", icon: UIImage(systemName: "note"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
+        },
         ]))
     }
     
@@ -79,6 +81,25 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
         let model = models[indexPath.section].options[indexPath.row]
         model.handler()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if (indexPath.row == 0){
+            let viewController = storyboard.instantiateViewController(withIdentifier: "idPhotos")
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        else if (indexPath.row == 1){
+            let viewController = storyboard.instantiateViewController(withIdentifier: "idFiles")
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        else{
+            let viewController = storyboard.instantiateViewController(withIdentifier: "idNotes")
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        
     }
     
     func setConstraints(){
