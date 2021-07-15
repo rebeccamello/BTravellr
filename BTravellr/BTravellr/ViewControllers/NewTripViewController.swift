@@ -18,6 +18,10 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var busBut: UIButton!
     @IBOutlet weak var footBut: UIButton!
     @IBOutlet weak var bikeBut: UIButton!
+    @IBOutlet weak var carLabel: UILabel!
+    @IBOutlet weak var tramBut: UIButton!
+    @IBOutlet weak var transpLabel: UILabel!
+    @IBOutlet weak var boatBut: UIButton!
     
     
     //    let tbl: UITableView = {
@@ -59,6 +63,10 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
         setConstraints()
     }
     func setConstraints(){
+        
+//        transpLabel.topAnchor.constraint(equalTo: tbl2.bottomAnchor, constant: view.bounds.height*0.08).isActive = true
+        
+        
         carBut.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.bounds.height*0.032).isActive = true
         carBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         carBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
@@ -76,9 +84,17 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
         footBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         footBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         
-        bikeBut.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.bounds.height*0.08).isActive = true
-        bikeBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.08).isActive = true
-        bikeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.08).isActive = true
+        bikeBut.leadingAnchor.constraint(equalTo: carBut.centerXAnchor,constant: 0).isActive = true
+        bikeBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+        bikeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+        bikeBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
+        
+//        boatBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
+        
+//        tramBut.leftAnchor.constraint(equalTo: bikeBut.rightAnchor, constant: view.bounds.height*0.03).isActive = true
+//        tramBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+//        tramBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+////        tramBut.centerYAnchor.constraint(equalTo: bikeBut.centerYAnchor, constant: 0).isActive = true
         
 //        tbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     }
