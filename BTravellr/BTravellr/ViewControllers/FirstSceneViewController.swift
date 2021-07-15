@@ -10,16 +10,19 @@ import UIKit
 class FirstSceneViewController: UIViewController {
 //    var label: UILabel = UILabel()
 
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var button: UIButton!
+    let button = UIButton()
+    let label = UILabel()
+    let but2 = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
-//        view.addSubview(label)
-//        view.addSubview(button)
-//        button.addTarget(self, action: #selector(actNewTrip), for: .touchDown)
+        view.addSubview(label)
+        view.addSubview(button)
+        view.addSubview(but2)
+        button.addTarget(self, action: #selector(actNewTrip), for: .touchDown)
+        but2.addTarget(self, action: #selector(actTrip), for: .touchDown)
         setConstraints()
     }
 
@@ -32,25 +35,45 @@ class FirstSceneViewController: UIViewController {
         
         //botao
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 330).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
         button.heightAnchor.constraint(equalToConstant: 45).isActive = true
         button.layer.cornerRadius = 15
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 45).isActive = true
-        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 80).isActive = true
+        button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
         button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
         button.setTitle("Adicionar", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .highlighted)
+        button.setTitleColor(.white, for: .highlighted)
         button.backgroundColor = #colorLiteral(red: 0.2103129625, green: 0.6795147061, blue: 0.6962627769, alpha: 1)
+        
+        //botao2
+        but2.translatesAutoresizingMaskIntoConstraints = false
+        but2.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        but2.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        but2.layer.cornerRadius = 15
+        but2.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        but2.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 45).isActive = true
+        but2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
+        but2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
+        but2.setTitle("viagem", for: .normal)
+        but2.setTitleColor(.white, for: .normal)
+        but2.setTitleColor(.white, for: .highlighted)
+        but2.backgroundColor = #colorLiteral(red: 0.2103129625, green: 0.6795147061, blue: 0.6962627769, alpha: 1)
     }
     
-//    @IBAction func actNewTrip() -> Void{
-//        guard let vc = storyboard?.instantiateViewController(identifier: "idNewTrip") as? NewTripViewController else {return}
-//        vc.modalPresentationStyle = .automatic
+    @IBAction func actNewTrip() -> Void{
+        let viewController = storyboard!.instantiateViewController(withIdentifier: "idNewTrip")
+        self.present(viewController,animated: true)
+    }
+    
+    @IBAction func actTrip() -> Void{
+        let root = TripViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .fullScreen
 //        vc.modalTransitionStyle = .coverVertical
-//        present(vc, animated: true)
-//    }
+        present(vc, animated: true)
+    }
 
 }
 

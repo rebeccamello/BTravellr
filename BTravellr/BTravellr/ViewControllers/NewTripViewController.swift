@@ -7,13 +7,13 @@
 
 import UIKit
 
-class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewTripViewController: UIViewController{
     let textos = ["Nome", "Destino"]
     let text2 = ["Ida", "Volta"]
     
     @IBOutlet weak var carBut: UIButton!
-    @IBOutlet weak var tbl: UITableView!
-    @IBOutlet weak var tbl2: UITableView!
+//    @IBOutlet weak var tbl: UITableView!
+//    @IBOutlet weak var tbl2: UITableView!
     @IBOutlet weak var planeBut: UIButton!
     @IBOutlet weak var busBut: UIButton!
     @IBOutlet weak var footBut: UIButton!
@@ -30,20 +30,6 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
 //            return v
 //        }()
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId")!
-        cell.textLabel?.text = textos[indexPath.row]
-        cell.textLabel?.textColor = .gray
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,12 +40,7 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
 //        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(),  metrics: nil, views: ["v0" : tbl]))
 //
 //        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : tbl]))
-        tbl.delegate = self
-        tbl.dataSource = self
-        tbl.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        tbl2.delegate = self
-        tbl2.dataSource = self
-        tbl2.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+
         setConstraints()
     }
     func setConstraints(){
@@ -89,8 +70,11 @@ class NewTripViewController: UIViewController, UITableViewDelegate, UITableViewD
         bikeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         bikeBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
         
+        busBut.leftAnchor.constraint(equalTo: planeBut.rightAnchor, constant: view.bounds.height*0.03).isActive = true
         boatBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
         boatBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.1).isActive = true
+        
+        transpLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
 //        boatBut.bottomAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.1).isActive = true
         
