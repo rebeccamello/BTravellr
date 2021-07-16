@@ -134,7 +134,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func setConstraints(){
-        imgView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
+        imgView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height*0.1).isActive = true
         imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         imgView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         imgView.heightAnchor.constraint(equalToConstant: 200).isActive = true

@@ -22,7 +22,7 @@ class NotesViewController: UIViewController{
     
     func setConstraints(){
         
-        textView.frame = CGRect(x: 0, y: 200, width: view.bounds.width, height: view.bounds.height*0.7)
+        textView.frame = CGRect(x: 0, y: 100, width: view.bounds.width, height: view.bounds.height*0.9)
 //        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
 //        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
 //        textView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
