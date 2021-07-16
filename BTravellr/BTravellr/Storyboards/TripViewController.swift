@@ -33,6 +33,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let voltaLabel = UILabel()
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
+    let barBut = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actNewTrip))
+    var models = [Section]()
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -40,11 +42,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return table
     }()
     
-    var models = [Section]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+        navigationItem.rightBarButtonItem = barBut
 
         configure()
         
@@ -70,8 +72,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         },
             TripOption(title: "Arquivos", icon: UIImage(systemName: "folder.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
         },
+            TripOption(title: "Minha Mala", icon: UIImage(systemName: "bag.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
+        },
             TripOption(title: "Anotações", icon: UIImage(systemName: "note"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
         },
+            
         ]))
     }
     
@@ -110,10 +115,22 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
             navigationController?.pushViewController(vc, animated: true)
         }
         
+        else if (indexPath.row == 2){
+            let vc = MyBagViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
         else{
             let vc = NotesViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    @IBAction func actNewTrip() -> Void{
+        let root = NewTripViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
     }
     
     func setConstraints(){

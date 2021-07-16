@@ -11,6 +11,7 @@ class NewTripViewController: UIViewController{
     let textos = ["Nome", "Destino"]
     let text2 = ["Ida", "Volta"]
     let barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
+    let barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
     
     let transpLabel = UILabel()
     
@@ -48,7 +49,10 @@ class NewTripViewController: UIViewController{
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
         title = "Nova viagem"
-        navigationItem.rightBarButtonItem  = barBut
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+        
+        navigationItem.rightBarButtonItem = barBut
+        navigationItem.leftBarButtonItem = barBut2
         
         view.addSubview(transpLabel)
         
@@ -80,7 +84,7 @@ class NewTripViewController: UIViewController{
     @IBAction func actHome() -> Void{
         let root = FirstSceneViewController()
         let vc = UINavigationController(rootViewController: root)
-        vc.modalPresentationStyle = .fullScreen
+        vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
     }
     
