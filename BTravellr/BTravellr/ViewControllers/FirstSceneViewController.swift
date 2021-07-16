@@ -21,6 +21,8 @@ class FirstSceneViewController: UIViewController {
         view.addSubview(label)
         view.addSubview(button)
         view.addSubview(but2)
+        title = "Minhas Viagens"
+        
         button.addTarget(self, action: #selector(actNewTrip), for: .touchDown)
         but2.addTarget(self, action: #selector(actTrip), for: .touchDown)
         setConstraints()

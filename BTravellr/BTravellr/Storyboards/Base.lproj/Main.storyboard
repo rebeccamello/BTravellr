@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O2f-gL-lye">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="f7O-XR-vpm">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -166,22 +166,7 @@
                             <constraint firstItem="Yns-ZL-LIq" firstAttribute="top" secondItem="ath-60-HlE" secondAttribute="bottom" constant="8" symbolic="YES" id="yuP-jR-1z1"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Nova Viagem" id="vsQ-GZ-I2W">
-                        <barButtonItem key="leftBarButtonItem" title="Cancelar" style="plain" id="cye-YE-nsm">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="etA-Tj-cAx">
-                                <rect key="frame" x="20" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancelar"/>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Q13-wP-lhV">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="gWO-5j-5Hs">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Salvar"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Nova Viagem" id="vsQ-GZ-I2W"/>
                     <connections>
                         <outlet property="bikeBut" destination="exe-O4-rWS" id="2Oe-ea-UnD"/>
                         <outlet property="boatBut" destination="lbf-XA-teS" id="lDY-d2-5Ri"/>
@@ -197,30 +182,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9gl-a7-cPT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3215.9420289855075" y="786.83035714285711"/>
-        </scene>
-        <!--Trip View Controller-->
-        <scene sceneID="FfY-e7-IAt">
-            <objects>
-                <viewController id="MAl-ZN-rDP" customClass="TripViewController" customModule="BTravellr" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="wEI-O9-qKW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Sbg-5N-C4K"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ndR-Dq-DOv">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="NuE-aP-C21">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="aa4-kM-WAE">
-                                <rect key="frame" x="302" y="7" width="92" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Editar"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KiP-dQ-QRZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1462" y="1537"/>
         </scene>
         <!--Teste View Controller-->
         <scene sceneID="Jtb-gc-osc">
@@ -293,31 +254,6 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="2415.9420289855075" y="786.83035714285711"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="BSb-BZ-uSd">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="O2f-gL-lye" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="y0f-E4-msV">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" red="0.37647193670000001" green="0.70925408599999995" blue="0.73334139590000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Nao-13-xdV">
-                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="f7O-XR-vpm" kind="relationship" relationship="rootViewController" id="5cM-EU-scw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vHW-73-3NR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="553.62318840579712" y="786.83035714285711"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.37647193670000001" green="0.70925408599999995" blue="0.73334139590000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

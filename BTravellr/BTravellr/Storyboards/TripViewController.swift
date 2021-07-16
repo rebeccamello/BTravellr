@@ -44,7 +44,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
 
         configure()
@@ -100,24 +99,19 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
         let model = models[indexPath.section].options[indexPath.row]
         model.handler()
-        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
+                
         if (indexPath.row == 0){
-            let vc = FilesViewController()
-    //        vc.modalTransitionStyle = .coverVertical
+            let vc = PhotosViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
         
         else if (indexPath.row == 1){
-            let vc = PhotosViewController()
-    //        vc.modalTransitionStyle = .coverVertical
+            let vc = FilesViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
         
         else{
             let vc = NotesViewController()
-    //        vc.modalTransitionStyle = .coverVertical
             navigationController?.pushViewController(vc, animated: true)
         }
     }
