@@ -15,13 +15,11 @@
 		9DE6F5CC269C92160027438C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CB269C92160027438C /* AppDelegate.swift */; };
 		9DE6F5CE269C92160027438C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CD269C92160027438C /* SceneDelegate.swift */; };
 		9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */; };
-		9DE6F5D3269C92160027438C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D1269C92160027438C /* Main.storyboard */; };
 		9DE6F5D6269C92160027438C /* BTravellr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D4269C92160027438C /* BTravellr.xcdatamodeld */; };
 		9DE6F5D8269C92170027438C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D7269C92170027438C /* Assets.xcassets */; };
 		9DE6F5DB269C92170027438C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D9269C92170027438C /* LaunchScreen.storyboard */; };
 		9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */; };
 		9DE6F5ED269E2F740027438C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5EC269E2F730027438C /* TextFieldTableViewCell.swift */; };
-		9DE6F5EF269E55AA0027438C /* TesteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5EE269E55AA0027438C /* TesteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,14 +32,12 @@
 		9DE6F5CB269C92160027438C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE6F5CD269C92160027438C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSceneViewController.swift; sourceTree = "<group>"; };
-		9DE6F5D2269C92160027438C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9DE6F5D5269C92160027438C /* BTravellr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTravellr.xcdatamodel; sourceTree = "<group>"; };
 		9DE6F5D7269C92170027438C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DE6F5DA269C92170027438C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DE6F5DC269C92170027438C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 		9DE6F5EC269E2F730027438C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextFieldTableViewCell.swift; path = Storyboards/TextFieldTableViewCell.swift; sourceTree = "<group>"; };
-		9DE6F5EE269E55AA0027438C /* TesteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TesteViewController.swift; path = BTravellr/Storyboards/TesteViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +88,6 @@
 				9DC0DAAC26A0E9E6005E4568 /* PhotosViewController.swift */,
 				9DC0DAA426A076F1005E4568 /* TripViewController.swift */,
 				9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */,
-				9DE6F5EE269E55AA0027438C /* TesteViewController.swift */,
 				9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */,
 				9DC0DAAA26A0C21C005E4568 /* NotesViewController.swift */,
 				9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */,
@@ -105,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				9DE6F5D9269C92170027438C /* LaunchScreen.storyboard */,
-				9DE6F5D1269C92160027438C /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -169,7 +163,6 @@
 			files = (
 				9DE6F5DB269C92170027438C /* LaunchScreen.storyboard in Resources */,
 				9DE6F5D8269C92170027438C /* Assets.xcassets in Resources */,
-				9DE6F5D3269C92160027438C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +178,6 @@
 				9DC0DAA526A076F1005E4568 /* TripViewController.swift in Sources */,
 				9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */,
 				9DC0DAA926A08A55005E4568 /* TripTableViewCell.swift in Sources */,
-				9DE6F5EF269E55AA0027438C /* TesteViewController.swift in Sources */,
 				9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */,
 				9DC0DAAB26A0C21C005E4568 /* NotesViewController.swift in Sources */,
 				9DE6F5ED269E2F740027438C /* TextFieldTableViewCell.swift in Sources */,
@@ -198,14 +190,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9DE6F5D1269C92160027438C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9DE6F5D2269C92160027438C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9DE6F5D9269C92170027438C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
