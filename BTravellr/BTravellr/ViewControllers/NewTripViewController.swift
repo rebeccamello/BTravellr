@@ -7,9 +7,13 @@
 
 import UIKit
 
+struct trip{
+    var name: String
+    var destine: String
+}
+
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     let textos = ["Nome", "Destino", "Ida", "Volta"]
-    let text2 = ["Ida", "Volta"]
     let barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
     let barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
     
@@ -41,7 +45,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         }()
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return textos.count
+        return 4
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,6 +61,27 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         }
             
         return UITableViewCell()
+    }
+    
+    enum TextFieldData: Int {
+        case name = 0
+        case destine = 1
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        textField.addTarget(self, action: #selector(valueChanged), for: .editingChanged)
+    }
+
+    @objc func valueChanged(_ textField: UITextField){
+//        switch textField.tag {
+//        case TextFieldData.name.rawValue:
+//            trip.name = textField.text
+//            
+//        case TextFieldData.destine.rawValue:
+//            trip.destine = textField.text
+//        default:
+//            break
+//        }
     }
     
     override func viewDidLoad() {
