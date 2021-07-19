@@ -7,8 +7,8 @@
 
 import UIKit
 
-class NewTripViewController: UIViewController{
-    let textos = ["Nome", "Destino"]
+class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
+    let textos = ["Nome", "Destino", "Ida", "Volta"]
     let text2 = ["Ida", "Volta"]
     let barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
     let barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
@@ -33,17 +33,31 @@ class NewTripViewController: UIViewController{
     let boatLabel = UILabel()
     
     
-//    @IBOutlet weak var tbl: UITableView!
-//    @IBOutlet weak var tbl2: UITableView!
-
+    let tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .grouped)
+            table.translatesAutoresizingMaskIntoConstraints = false
+            table.backgroundColor = .white
+            return table
+        }()
     
-    
-    //    let tbl: UITableView = {
-//            let v = UITableView(frame: .zero, style: .plain)
-//            v.translatesAutoresizingMaskIntoConstraints = false
-//            return v
-//        }()
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return textos.count
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "register_cell", for: indexPath) as? TextFieldTableViewCell {
+            
+            // MARK: Remove selection style
+            cell.selectionStyle = .none
+            
+            cell.placeholder = textos[indexPath.row]
+            cell.dataTextField.tag = indexPath.row
+            cell.dataTextField.delegate = self
+            return cell
+        }
+            
+        return UITableViewCell()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +67,8 @@ class NewTripViewController: UIViewController{
         
         navigationItem.rightBarButtonItem = barBut
         navigationItem.leftBarButtonItem = barBut2
+        
+        initTableView()
         
         view.addSubview(transpLabel)
         
@@ -72,15 +88,25 @@ class NewTripViewController: UIViewController{
         view.addSubview(planeLabel)
         view.addSubview(footLabel)
         
-    
-//        view.addSubview(tbl)
-//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(),  metrics: nil, views: ["v0" : tbl]))
-//
-//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0" : tbl]))
         setButtons()
         setConstraints()
     }
     
+    func initTableView(){
+        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "register_cell")
+        tableView.backgroundColor = .white
+        
+        // #3
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.1),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: -35)
+        ])
+    }
+        
     @IBAction func actHome() -> Void{
         let root = FirstSceneViewController()
         let vc = UINavigationController(rootViewController: root)
@@ -121,7 +147,7 @@ class NewTripViewController: UIViewController{
         // Meios de Transportes
         transpLabel.translatesAutoresizingMaskIntoConstraints = false
         transpLabel.textColor = .black
-        transpLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        transpLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
         transpLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         transpLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
         transpLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true

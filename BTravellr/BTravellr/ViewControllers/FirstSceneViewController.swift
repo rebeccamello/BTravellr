@@ -12,7 +12,8 @@ class FirstSceneViewController: UIViewController{
     let button = UIButton()
     let label = UILabel()
     let but2 = UIButton()
-    let barBut = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(actNewTrip))
+    var but: UIBarButtonItem?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +23,12 @@ class FirstSceneViewController: UIViewController{
 
         view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
         title = "Minhas viagens"
-        navigationItem.rightBarButtonItem  = barBut
+        but = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(actNewTrip))
+        navigationItem.rightBarButtonItem = but!
         
         view.addSubview(label)
         view.addSubview(button)
         view.addSubview(but2)
-        barBut.action = #selector(actNewTrip)
         
         button.addTarget(self, action: #selector(actNewTrip), for: .touchDown)
         but2.addTarget(self, action: #selector(actTrip), for: .touchDown)

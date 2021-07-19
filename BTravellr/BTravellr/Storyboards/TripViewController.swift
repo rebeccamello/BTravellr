@@ -175,7 +175,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         but.bottomAnchor.constraint(equalTo: imgView.bottomAnchor, constant: -10).isActive = true
         
         
-        nameLabel.text = "Noooooome"
+        nameLabel.text = "Nome:"
         nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
