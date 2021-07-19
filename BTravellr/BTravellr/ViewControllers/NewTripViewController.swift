@@ -14,8 +14,8 @@ struct trip{
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     let textos = ["Nome", "Destino", "Ida", "Volta"]
-    let barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
-    let barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
+    var barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
+    var barBut2: UIBarButtonItem?
     
     let transpLabel = UILabel()
     
@@ -76,7 +76,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
 //        switch textField.tag {
 //        case TextFieldData.name.rawValue:
 //            trip.name = textField.text
-//            
+//
 //        case TextFieldData.destine.rawValue:
 //            trip.destine = textField.text
 //        default:
@@ -90,8 +90,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         title = "Nova viagem"
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
+        barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
         navigationItem.rightBarButtonItem = barBut
-        navigationItem.leftBarButtonItem = barBut2
+        navigationItem.leftBarButtonItem = barBut2!
         
         initTableView()
         
@@ -133,10 +134,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     }
         
     @IBAction func actHome() -> Void{
-        let root = FirstSceneViewController()
-        let vc = UINavigationController(rootViewController: root)
-        vc.modalPresentationStyle = .automatic
-        present(vc, animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setButtons(){
