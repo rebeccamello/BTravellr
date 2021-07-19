@@ -120,6 +120,7 @@ class NewTripViewController: UIViewController{
         
         // Meios de Transportes
         transpLabel.translatesAutoresizingMaskIntoConstraints = false
+        transpLabel.textColor = .black
         transpLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         transpLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         transpLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
@@ -171,36 +172,43 @@ class NewTripViewController: UIViewController{
         
         // Labels
         carLabel.translatesAutoresizingMaskIntoConstraints = false
+        carLabel.textColor = .black
         carLabel.topAnchor.constraint(equalTo: carBut.bottomAnchor, constant: 5).isActive = true
         carLabel.centerXAnchor.constraint(equalTo: carBut.centerXAnchor, constant: 0).isActive = true
         carLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         planeLabel.translatesAutoresizingMaskIntoConstraints = false
+        planeLabel.textColor = .black
         planeLabel.topAnchor.constraint(equalTo: planeBut.bottomAnchor, constant: 5).isActive = true
         planeLabel.centerXAnchor.constraint(equalTo: planeBut.centerXAnchor, constant: 0).isActive = true
         planeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         busLabel.translatesAutoresizingMaskIntoConstraints = false
+        busLabel.textColor = .black
         busLabel.topAnchor.constraint(equalTo: busBut.bottomAnchor, constant: 5).isActive = true
         busLabel.centerXAnchor.constraint(equalTo: busBut.centerXAnchor, constant: 0).isActive = true
         busLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         footLabel.translatesAutoresizingMaskIntoConstraints = false
+        footLabel.textColor = .black
         footLabel.topAnchor.constraint(equalTo: footBut.bottomAnchor, constant: 5).isActive = true
         footLabel.centerXAnchor.constraint(equalTo: footBut.centerXAnchor, constant: 0).isActive = true
         footLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         bikeLabel.translatesAutoresizingMaskIntoConstraints = false
+        bikeLabel.textColor = .black
         bikeLabel.topAnchor.constraint(equalTo: bikeBut.bottomAnchor, constant: 5).isActive = true
         bikeLabel.centerXAnchor.constraint(equalTo: bikeBut.centerXAnchor, constant: 0).isActive = true
         bikeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         boatLabel.translatesAutoresizingMaskIntoConstraints = false
+        boatLabel.textColor = .black
         boatLabel.topAnchor.constraint(equalTo: boatBut.bottomAnchor, constant: 5).isActive = true
         boatLabel.centerXAnchor.constraint(equalTo: boatBut.centerXAnchor, constant: 0).isActive = true
         boatLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         tramLabel.translatesAutoresizingMaskIntoConstraints = false
+        tramLabel.textColor = .black
         tramLabel.topAnchor.constraint(equalTo: tramBut.bottomAnchor, constant: 5).isActive = true
         tramLabel.centerXAnchor.constraint(equalTo: tramBut.centerXAnchor, constant: 0).isActive = true
         tramLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true

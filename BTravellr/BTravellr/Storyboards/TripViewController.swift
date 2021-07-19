@@ -19,15 +19,9 @@ struct TripOption{
     let handler: (() -> Void)
 }
 
-class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
-    let imgView: UIImageView = {
-           let theImageView = UIImageView()
-           theImageView.image = UIImage(named: "TesteImg.png")
-           theImageView.translatesAutoresizingMaskIntoConstraints = false
-           return theImageView
-    }()
-
+    let but = UIButton()
     let nameLabel = UILabel()
     let idaLabel = UILabel()
     let voltaLabel = UILabel()
@@ -36,11 +30,41 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let barBut = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actNewTrip))
     var models = [Section]()
     
+    // tablle view
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(TripTableViewCell.self, forCellReuseIdentifier: TripTableViewCell.identifier)
         return table
     }()
+    
+    // imagem de capa
+    let imgView: UIImageView = {
+           let theImageView = UIImageView()
+           theImageView.translatesAutoresizingMaskIntoConstraints = false
+           return theImageView
+    }()
+    
+    @objc func actNewImage(_ sender: AnyObject){
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let image = UIImagePickerController()
+            image.delegate = self;
+            image.sourceType = .photoLibrary
+            self.present(image, animated: true, completion: nil)
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            self.dismiss(animated: true, completion: nil)
+        }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            imgView.image = image
+            self.dismiss(animated: true, completion: nil)
+    }
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +75,17 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         configure()
         
         view.addSubview(tableView)
+        tableView.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
         view.addSubview(imgView)
         view.addSubview(nameLabel)
         view.addSubview(idaLabel)
         view.addSubview(voltaLabel)
+        view.addSubview(but)
+        but.setImage(UIImage(named: "plus.circle"), for: .normal)
+        but.addTarget(self, action: #selector(actNewImage), for: .touchDown)
         
         imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
+        imgView.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -68,7 +97,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func configure(){
         models.append(Section(title: "General", options: [
             TripOption(title: "Fotos", icon: UIImage(systemName: "photo"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
-                print("Clicou")
         },
             TripOption(title: "Arquivos", icon: UIImage(systemName: "folder.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
         },
@@ -126,6 +154,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    
     @IBAction func actNewTrip() -> Void{
         let root = NewTripViewController()
         let vc = UINavigationController(rootViewController: root)
@@ -139,7 +168,15 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         imgView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         imgView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
+        but.translatesAutoresizingMaskIntoConstraints = false
+        but.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        but.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        but.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        but.bottomAnchor.constraint(equalTo: imgView.bottomAnchor, constant: -10).isActive = true
+        
+        
         nameLabel.text = "Noooooome"
+        nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         nameLabel.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
@@ -147,6 +184,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         idaLabel.text = "Ida:"
+        idaLabel.textColor = .black
         idaLabel.translatesAutoresizingMaskIntoConstraints = false
         idaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         idaLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
@@ -154,6 +192,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         idaLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         voltaLabel.text = "Volta:"
+        voltaLabel.textColor = .black
         voltaLabel.translatesAutoresizingMaskIntoConstraints = false
         voltaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         voltaLabel.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
