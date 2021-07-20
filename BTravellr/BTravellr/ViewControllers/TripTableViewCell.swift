@@ -37,7 +37,6 @@ class TripTableViewCell: UITableViewCell {
         iconContainer.addSubview(iconImageView)
         contentView.addSubview(label)
         contentView.clipsToBounds = true
-        contentView.backgroundColor = .white
         accessoryType = .disclosureIndicator
     }
     
@@ -69,7 +68,6 @@ class TripTableViewCell: UITableViewCell {
     
     public func configure(with modal: TripOption){
         label.text = modal.title
-        label.textColor = .black
         iconContainer.backgroundColor = modal.iconBackgroundColor
         iconImageView.image = modal.icon
     }

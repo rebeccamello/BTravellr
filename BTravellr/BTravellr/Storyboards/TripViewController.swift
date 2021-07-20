@@ -27,7 +27,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let voltaLabel = UILabel()
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
-    let barBut = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actNewTrip))
     var models = [Section]()
     
     // tablle view
@@ -68,14 +67,14 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        navigationItem.rightBarButtonItem = barBut
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actNewTrip))
 
         configure()
         
         view.addSubview(tableView)
-        tableView.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
+        tableView.backgroundColor = .systemBackground
         view.addSubview(imgView)
         view.addSubview(nameLabel)
         view.addSubview(idaLabel)
@@ -176,7 +175,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
         nameLabel.text = "Nome:"
-        nameLabel.textColor = .black
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         nameLabel.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
@@ -184,7 +182,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         idaLabel.text = "Ida:"
-        idaLabel.textColor = .black
         idaLabel.translatesAutoresizingMaskIntoConstraints = false
         idaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         idaLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
@@ -192,7 +189,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         idaLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         voltaLabel.text = "Volta:"
-        voltaLabel.textColor = .black
         voltaLabel.translatesAutoresizingMaskIntoConstraints = false
         voltaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         voltaLabel.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true

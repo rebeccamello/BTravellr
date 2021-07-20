@@ -14,11 +14,12 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     var items = [listItem]()
+    var newItem = listItem(title: "", isChecked: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actItem))
         
@@ -30,21 +31,42 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         setConstraints()
     }
     
-    @objc func actItem(_ sender: AnyObject){
-        self.tableView.reloadData()
-        self.items.append(listItem(title: "Mercury"))
-        self.tableView.performBatchUpdates({
-            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1,
-                                                     section: 0)],
-                                      with: .automatic)
-        }, completion: nil)
+    @objc func actItem() -> Void{
+        let root = NewItemViewController()
+        let vc = UINavigationController(rootViewController: root)
+        vc.modalPresentationStyle = .automatic
+        present(vc, animated: true)
+        done()
     }
+    
+    @IBAction func done(){
+        tableView.reloadData()
+        let vc = NewItemViewController()
+        newItem.title = vc.name
+        print(newItem.title)
+        items.append(listItem(title: newItem.title, isChecked: false))
+        self.tableView.performBatchUpdates({
+            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
+        }, completion: nil)
+        
+//        self.dismiss(animated: true, completion: nil)
+    }
+    
+//    @objc func actItem(_ sender: AnyObject){
+//        self.tableView.reloadData()
+//        self.items.append(listItem(title: "Mercury"))
+//        self.tableView.performBatchUpdates({
+//            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1,
+//                                                     section: 0)],
+//                                      with: .automatic)
+//        }, completion: nil)
+//    }
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
             table.translatesAutoresizingMaskIntoConstraints = false
-            table.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+            table.backgroundColor = .systemBackground
+            table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
             return table
         }()
     
@@ -56,14 +78,24 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = item.title
-        cell.accessoryType = item.isChecked ? .checkmark : .none
+        print("aqui:", item.isChecked)
+        if item.isChecked{
+            print("checou")
+            cell.accessoryType = .checkmark
+        }
+        else{
+            print("deschecou")
+            cell.accessoryType = .none
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var item = items[indexPath.row]
+        print(item.isChecked)
         item.isChecked = !item.isChecked
+        print(item.isChecked)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     

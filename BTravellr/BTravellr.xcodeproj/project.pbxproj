@@ -13,6 +13,7 @@
 		9DC0DAAD26A0E9E6005E4568 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAAC26A0E9E6005E4568 /* PhotosViewController.swift */; };
 		9DC0DAAF26A0EC11005E4568 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */; };
 		9DC0DAB126A20915005E4568 /* MyBagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAB026A20915005E4568 /* MyBagViewController.swift */; };
+		9DC0DAB526A639C5005E4568 /* NewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */; };
 		9DE6F5CC269C92160027438C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CB269C92160027438C /* AppDelegate.swift */; };
 		9DE6F5CE269C92160027438C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CD269C92160027438C /* SceneDelegate.swift */; };
 		9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */; };
@@ -30,6 +31,7 @@
 		9DC0DAAC26A0E9E6005E4568 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = BTravellr/Storyboards/PhotosViewController.swift; sourceTree = SOURCE_ROOT; };
 		9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		9DC0DAB026A20915005E4568 /* MyBagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBagViewController.swift; sourceTree = "<group>"; };
+		9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewController.swift; sourceTree = "<group>"; };
 		9DE6F5C8269C92160027438C /* BTravellr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTravellr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE6F5CB269C92160027438C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE6F5CD269C92160027438C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				9DC0DAAC26A0E9E6005E4568 /* PhotosViewController.swift */,
 				9DC0DAA426A076F1005E4568 /* TripViewController.swift */,
 				9DC0DAB026A20915005E4568 /* MyBagViewController.swift */,
+				9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */,
 				9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */,
 				9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */,
 				9DC0DAAA26A0C21C005E4568 /* NotesViewController.swift */,
@@ -188,6 +191,7 @@
 				9DC0DAAF26A0EC11005E4568 /* FilesViewController.swift in Sources */,
 				9DE6F5CE269C92160027438C /* SceneDelegate.swift in Sources */,
 				9DC0DAB126A20915005E4568 /* MyBagViewController.swift in Sources */,
+				9DC0DAB526A639C5005E4568 /* NewItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
