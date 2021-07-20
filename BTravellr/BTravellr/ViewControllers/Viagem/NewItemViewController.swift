@@ -10,6 +10,7 @@ import UIKit
 class NewItemViewController: UIViewController {
     let textField: UITextField = UITextField (frame:CGRect(x: 10, y: 10, width: 50, height: 10))
     var name: String = ""
+    weak var delegate: NewItemViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,8 @@ class NewItemViewController: UIViewController {
     
     @IBAction func done() -> Void{
         name = textField.text!
+        self.delegate?.updateItem(title: name)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setConstraints(){
@@ -40,7 +43,6 @@ class NewItemViewController: UIViewController {
         textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25).isActive = true
-        
     }
 }
 

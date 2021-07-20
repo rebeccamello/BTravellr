@@ -33,34 +33,11 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @objc func actItem() -> Void{
         let root = NewItemViewController()
+        root.delegate = self
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
-        done()
     }
-    
-    @IBAction func done(){
-        tableView.reloadData()
-        let vc = NewItemViewController()
-        newItem.title = vc.name
-        print(newItem.title)
-        items.append(listItem(title: newItem.title, isChecked: false))
-        self.tableView.performBatchUpdates({
-            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .automatic)
-        }, completion: nil)
-        
-//        self.dismiss(animated: true, completion: nil)
-    }
-    
-//    @objc func actItem(_ sender: AnyObject){
-//        self.tableView.reloadData()
-//        self.items.append(listItem(title: "Mercury"))
-//        self.tableView.performBatchUpdates({
-//            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1,
-//                                                     section: 0)],
-//                                      with: .automatic)
-//        }, completion: nil)
-//    }
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -78,13 +55,13 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = item.title
-        print("aqui:", item.isChecked)
+//        print("aqui:", item.isChecked)
         if item.isChecked{
-            print("checou")
+//            print("checou")
             cell.accessoryType = .checkmark
         }
         else{
-            print("deschecou")
+//            print("deschecou")
             cell.accessoryType = .none
         }
         return cell
@@ -93,9 +70,9 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var item = items[indexPath.row]
-        print(item.isChecked)
+//        print(item.isChecked)
         item.isChecked = !item.isChecked
-        print(item.isChecked)
+//        print(item.isChecked)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
@@ -105,4 +82,13 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.1).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     }
+}
+
+extension MyBagViewController: NewItemViewControllerDelegate{
+    func updateItem(title: String) {
+        items.append(listItem(title: title))
+        tableView.reloadData()
+    }
+    
+    
 }
