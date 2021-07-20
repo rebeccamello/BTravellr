@@ -48,17 +48,17 @@ class TextFieldTableViewCell: UITableViewCell {
         }()
 
     func initConstraints(){
-        addSubview(dataTextField)
+        contentView.addSubview(dataTextField)
 
         NSLayoutConstraint.activate([
             dataTextField.heightAnchor.constraint(equalToConstant: 40),
-            dataTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dataTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dataTextField.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            dataTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            dataTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dataTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            dataTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            dataTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
     }
-
+    
     
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

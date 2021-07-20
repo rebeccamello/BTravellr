@@ -7,12 +7,13 @@
 
 import UIKit
 
-struct trip{
+struct Trip{
     var name: String
     var destine: String
 }
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
+    var trip = Trip(name: "", destine: "")
     let textos = ["Nome", "Destino", "Ida", "Volta"]
     var barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
     var barBut2: UIBarButtonItem?
@@ -74,15 +75,16 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     }
 
     @objc func valueChanged(_ textField: UITextField){
-//        switch textField.tag {
-//        case TextFieldData.name.rawValue:
-//            trip.name = textField.text
-//
-//        case TextFieldData.destine.rawValue:
-//            trip.destine = textField.text
-//        default:
-//            break
-//        }
+        switch textField.tag {
+        case TextFieldData.name.rawValue:
+            trip.name = textField.text ?? ""
+
+        case TextFieldData.destine.rawValue:
+            trip.destine = textField.text ?? ""
+        default:
+            break
+        }
+        print(trip)
     }
     
     override func viewDidLoad() {
