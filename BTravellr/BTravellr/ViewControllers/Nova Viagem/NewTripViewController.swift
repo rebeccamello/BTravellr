@@ -7,15 +7,18 @@
 
 import UIKit
 
-struct Trip{
+struct TripStruct{
     var name: String
     var destine: String
 }
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
-    var trip = Trip(name: "", destine: "")
+    
+    
+    
+    var trip = TripStruct(name: "", destine: "")
     let textos = ["Nome", "Destino", "Ida", "Volta"]
-    var barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
+    var barBut: UIBarButtonItem?
     var barBut2: UIBarButtonItem?
     
     let transpLabel = UILabel()
@@ -94,7 +97,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         title = "Nova viagem"
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
+        barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
         barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
+        
         navigationItem.rightBarButtonItem = barBut
         navigationItem.leftBarButtonItem = barBut2!
         
@@ -140,6 +145,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     @IBAction func actHome() -> Void{
         self.dismiss(animated: true, completion: nil)
     }
+    
     
     func setButtons(){
         carBut.setImage(UIImage(named: "carBut"), for: .normal)
@@ -259,3 +265,5 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         tramLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 }
+
+

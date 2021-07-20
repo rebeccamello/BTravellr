@@ -62,9 +62,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.dismiss(animated: true, completion: nil)
     }
 
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

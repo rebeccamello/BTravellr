@@ -13,6 +13,14 @@ class FirstSceneViewController: UIViewController{
     let label = UILabel()
     let but2 = UIButton()
     var but: UIBarButtonItem?
+    
+    let storageProvider: StorageProvider
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        super.init(nibName: nil, bundle: nil) }
+    required init?(coder: NSCoder) {
+        fatalError("Not implemented")
+    }
 
     
     override func viewDidLoad() {

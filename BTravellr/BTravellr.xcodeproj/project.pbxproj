@@ -15,10 +15,12 @@
 		9DC0DAB126A20915005E4568 /* MyBagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAB026A20915005E4568 /* MyBagViewController.swift */; };
 		9DC0DAB526A639C5005E4568 /* NewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */; };
 		9DC0DABB26A74A4F005E4568 /* NewItemViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DABA26A74A4F005E4568 /* NewItemViewControllerDelegate.swift */; };
+		9DC0DABE26A75533005E4568 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DABC26A75533005E4568 /* Model.xcdatamodeld */; };
+		9DC0DAC126A757ED005E4568 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAC026A757ED005E4568 /* StorageProvider.swift */; };
+		9DC0DAC326A77DF0005E4568 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAC226A77DF0005E4568 /* CollectionViewCell.swift */; };
 		9DE6F5CC269C92160027438C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CB269C92160027438C /* AppDelegate.swift */; };
 		9DE6F5CE269C92160027438C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CD269C92160027438C /* SceneDelegate.swift */; };
 		9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */; };
-		9DE6F5D6269C92160027438C /* BTravellr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D4269C92160027438C /* BTravellr.xcdatamodeld */; };
 		9DE6F5D8269C92170027438C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D7269C92170027438C /* Assets.xcassets */; };
 		9DE6F5DB269C92170027438C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DE6F5D9269C92170027438C /* LaunchScreen.storyboard */; };
 		9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */; };
@@ -34,11 +36,13 @@
 		9DC0DAB026A20915005E4568 /* MyBagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBagViewController.swift; sourceTree = "<group>"; };
 		9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewController.swift; sourceTree = "<group>"; };
 		9DC0DABA26A74A4F005E4568 /* NewItemViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemViewControllerDelegate.swift; sourceTree = "<group>"; };
+		9DC0DABD26A75533005E4568 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		9DC0DAC026A757ED005E4568 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
+		9DC0DAC226A77DF0005E4568 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		9DE6F5C8269C92160027438C /* BTravellr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTravellr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DE6F5CB269C92160027438C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DE6F5CD269C92160027438C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9DE6F5CF269C92160027438C /* FirstSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSceneViewController.swift; sourceTree = "<group>"; };
-		9DE6F5D5269C92160027438C /* BTravellr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BTravellr.xcdatamodel; sourceTree = "<group>"; };
 		9DE6F5D7269C92170027438C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9DE6F5DA269C92170027438C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9DE6F5DC269C92170027438C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 				9DC0DABA26A74A4F005E4568 /* NewItemViewControllerDelegate.swift */,
 				9DC0DAA826A08A55005E4568 /* TripTableViewCell.swift */,
 				9DC0DAAA26A0C21C005E4568 /* NotesViewController.swift */,
+				9DC0DAC226A77DF0005E4568 /* CollectionViewCell.swift */,
 			);
 			path = Viagem;
 			sourceTree = "<group>";
@@ -89,6 +94,15 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
+		9DC0DABF26A757D5005E4568 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				9DC0DABC26A75533005E4568 /* Model.xcdatamodeld */,
+				9DC0DAC026A757ED005E4568 /* StorageProvider.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		9DE6F5BF269C92160027438C = {
 			isa = PBXGroup;
 			children = (
@@ -108,13 +122,13 @@
 		9DE6F5CA269C92160027438C /* BTravellr */ = {
 			isa = PBXGroup;
 			children = (
+				9DC0DABF26A757D5005E4568 /* CoreData */,
 				9DC0DAB926A740EC005E4568 /* Delegates */,
 				9DE6F5EC269E2F730027438C /* TextFieldTableViewCell.swift */,
 				9DE6F5E7269CB1520027438C /* Storyboards */,
 				9DE6F5E6269CB13E0027438C /* ViewControllers */,
 				9DE6F5D7269C92170027438C /* Assets.xcassets */,
 				9DE6F5DC269C92170027438C /* Info.plist */,
-				9DE6F5D4269C92160027438C /* BTravellr.xcdatamodeld */,
 			);
 			path = BTravellr;
 			sourceTree = "<group>";
@@ -206,15 +220,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DE6F5D6269C92160027438C /* BTravellr.xcdatamodeld in Sources */,
 				9DC0DAAD26A0E9E6005E4568 /* PhotosViewController.swift in Sources */,
 				9DC0DAA526A076F1005E4568 /* TripViewController.swift in Sources */,
 				9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */,
+				9DC0DABE26A75533005E4568 /* Model.xcdatamodeld in Sources */,
+				9DC0DAC126A757ED005E4568 /* StorageProvider.swift in Sources */,
 				9DC0DAA926A08A55005E4568 /* TripTableViewCell.swift in Sources */,
 				9DE6F5E9269CBB9A0027438C /* NewTripViewController.swift in Sources */,
 				9DC0DAAB26A0C21C005E4568 /* NotesViewController.swift in Sources */,
 				9DC0DABB26A74A4F005E4568 /* NewItemViewControllerDelegate.swift in Sources */,
 				9DE6F5ED269E2F740027438C /* TextFieldTableViewCell.swift in Sources */,
+				9DC0DAC326A77DF0005E4568 /* CollectionViewCell.swift in Sources */,
 				9DE6F5CC269C92160027438C /* AppDelegate.swift in Sources */,
 				9DC0DAAF26A0EC11005E4568 /* FilesViewController.swift in Sources */,
 				9DE6F5CE269C92160027438C /* SceneDelegate.swift in Sources */,
@@ -415,13 +431,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		9DE6F5D4269C92160027438C /* BTravellr.xcdatamodeld */ = {
+		9DC0DABC26A75533005E4568 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9DE6F5D5269C92160027438C /* BTravellr.xcdatamodel */,
+				9DC0DABD26A75533005E4568 /* Model.xcdatamodel */,
 			);
-			currentVersion = 9DE6F5D5269C92160027438C /* BTravellr.xcdatamodel */;
-			path = BTravellr.xcdatamodeld;
+			currentVersion = 9DC0DABD26A75533005E4568 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

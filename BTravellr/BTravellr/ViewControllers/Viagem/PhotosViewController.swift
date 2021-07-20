@@ -7,7 +7,9 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class PhotosViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    var imgs = [UIImage]()
     
     let imgView: UIImageView = {
            let theImageView = UIImageView()
@@ -15,6 +17,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
            return theImageView
     }()
     
+    private var collectionView: UICollectionView?
     
     @objc func actNewImage(_ sender: AnyObject){
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
@@ -30,9 +33,10 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            imgView.image = image
-            self.dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        imgs.append(image)
+        collectionView?.reloadData()
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -43,6 +47,23 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewImage))
         title = "Fotos"
         
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
+        layout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                
+        guard let collectionView = collectionView else {
+            return
+        }
+                
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+                
+                
+        view.addSubview(collectionView)
+        
         view.addSubview(imgView)
         setConstraints()
     }
@@ -52,5 +73,24 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 13).isActive = true
         imgView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         imgView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+      
+    }
+    
+    // Quantidade de células
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imgs.count
+        }
+        
+    // Customização de células
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {preconditionFailure()}
+        cell.img.image = imgs[indexPath.row]
+        return cell
     }
 }

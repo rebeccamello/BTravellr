@@ -8,7 +8,10 @@
 import UIKit
 import MobileCoreServices
 
-class FilesViewController: UIViewController {
+class FilesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    var myUrl = [URL]()
+    private var collectionView: UICollectionView?
+    let documentPicker = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF), String(kUTTypeImage)], in: .import)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,18 +20,51 @@ class FilesViewController: UIViewController {
         title = "Arquivos"
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         navigationItem.rightBarButtonItem  = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewFile))
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
+        layout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                
+        guard let collectionView = collectionView else {
+            return
+        }
+                
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+                
+                
+        view.addSubview(collectionView)
+        setConstraints()
     }
     
     @IBAction func actNewFile() -> Void{
-        let documentPicker = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF)], in: .import)
-           documentPicker.delegate = self
-           documentPicker.allowsMultipleSelection = false
-           documentPicker.modalPresentationStyle = .fullScreen
-           present(documentPicker, animated: true, completion: nil)
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = true
+        documentPicker.modalPresentationStyle = .fullScreen
+        present(documentPicker, animated: true, completion: nil)
     }
     
     func setConstraints(){
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    // Quantidade de células
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return myUrl.count
+        }
         
+    // Customização de células
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell, let data = try? Data(contentsOf: myUrl[indexPath.row])  else {preconditionFailure()}
+        cell.img.image = UIImage(data: data)
+        return cell
     }
 }
 
@@ -37,7 +73,8 @@ extension FilesViewController: UIDocumentPickerDelegate{
         guard let selectedFileURL = urls.first else{
             return
         }
-        
+        myUrl.append(selectedFileURL)
+        collectionView?.reloadData()
         let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
         // ve se o arquivo ja existe no app
@@ -63,4 +100,7 @@ extension FilesViewController: UIDocumentPickerDelegate{
 //        public func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
 //            controller.dismiss(animated: true)
         }
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        print("teste")
+    }
 }
