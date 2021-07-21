@@ -19,16 +19,16 @@ class StorageProvider {
     }
 }
 
-//extension StorageProvider {
-//    @objc func actSave(named name: String){
-//        let trip = Trip(context: persistentContainer.viewContext)
-//        trip.name = name
-//        do {
-//            try persistentContainer.viewContext.save()
-//            print("Movie saved succesfully")
-//        }
-//        catch {
-//            print("Failed to save movie: \(error)")
-//        }
-//    }
-//}
+extension StorageProvider {
+    @objc func actSave(named name: String){
+        let trip = Trip(context: persistentContainer.viewContext)
+        trip.name = name
+        do {
+            try persistentContainer.viewContext.save()
+            print("Trip saved succesfully")
+        }
+        catch {
+            print("Failed to save trip: \(error)")
+        }
+    }
+}

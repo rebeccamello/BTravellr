@@ -29,7 +29,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let navItem = UINavigationItem(title: "Anotações")
     var models = [Section]()
     let deleteTrip = UIButton()
-    let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se deletá-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
+    
     
     // tablle view
     private let tableView: UITableView = {
@@ -61,6 +61,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         imgView.image = image
+        imgView.contentMode = .scaleToFill
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -85,7 +86,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
         but.addTarget(self, action: #selector(actNewImage), for: .touchDown)
-        deleteTrip.setTitle("Deletar viagem", for: .normal)
+        deleteTrip.setTitle("Excluir viagem", for: .normal)
         deleteTrip.setTitleColor(.systemRed, for: .normal)
         deleteTrip.addTarget(self, action: #selector(actAlert), for: .touchDown)
         
@@ -101,10 +102,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @objc func actAlert(){
+        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se exclui-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
 
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
     
     func configure(){
