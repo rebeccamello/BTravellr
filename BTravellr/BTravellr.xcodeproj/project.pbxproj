@@ -65,14 +65,14 @@
 			isa = PBXGroup;
 			children = (
 				9DC0DAA426A076F1005E4568 /* TripViewController.swift */,
+				9DC0DAA826A08A55005E4568 /* TripTableViewCell.swift */,
 				9DC0DAAC26A0E9E6005E4568 /* PhotosViewController.swift */,
-				9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */,
 				9DC0DAB426A639C5005E4568 /* NewItemViewController.swift */,
 				9DC0DAB026A20915005E4568 /* MyBagViewController.swift */,
 				9DC0DABA26A74A4F005E4568 /* NewItemViewControllerDelegate.swift */,
-				9DC0DAA826A08A55005E4568 /* TripTableViewCell.swift */,
 				9DC0DAAA26A0C21C005E4568 /* NotesViewController.swift */,
 				9DC0DAC226A77DF0005E4568 /* CollectionViewCell.swift */,
+				9DC0DAAE26A0EC11005E4568 /* FilesViewController.swift */,
 			);
 			path = Viagem;
 			sourceTree = "<group>";

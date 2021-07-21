@@ -28,6 +28,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
     var models = [Section]()
+    let deleteTrip = UIButton()
+    let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se deletá-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
     
     // tablle view
     private let tableView: UITableView = {
@@ -38,9 +40,9 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // imagem de capa
     let imgView: UIImageView = {
-           let theImageView = UIImageView()
-           theImageView.translatesAutoresizingMaskIntoConstraints = false
-           return theImageView
+        let theImageView = UIImageView()
+        theImageView.translatesAutoresizingMaskIntoConstraints = false
+        return theImageView
     }()
     
     @objc func actNewImage(_ sender: AnyObject){
@@ -51,18 +53,18 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.present(image, animated: true, completion: nil)
         }
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            self.dismiss(animated: true, completion: nil)
-        }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            imgView.image = image
-            self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
-
-
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imgView.image = image
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -78,8 +80,15 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(idaLabel)
         view.addSubview(voltaLabel)
         view.addSubview(but)
+        view.addSubview(deleteTrip)
+        
+        // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
         but.addTarget(self, action: #selector(actNewImage), for: .touchDown)
+        deleteTrip.setTitle("Deletar viagem", for: .normal)
+        deleteTrip.setTitleColor(.systemRed, for: .normal)
+        deleteTrip.addTarget(self, action: #selector(actAlert), for: .touchDown)
+        
         
         imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         imgView.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
@@ -91,16 +100,23 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setConstraints()
     }
     
+    @objc func actAlert(){
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
+    
     func configure(){
         models.append(Section(title: "General", options: [
             TripOption(title: "Fotos", icon: UIImage(systemName: "photo"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
-        },
-            TripOption(title: "Arquivos", icon: UIImage(systemName: "folder.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
-        },
+            },
+//            TripOption(title: "Arquivos", icon: UIImage(systemName: "folder.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
+//            },
             TripOption(title: "Minha Mala", icon: UIImage(systemName: "bag.fill"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
-        },
+            },
             TripOption(title: "Anotações", icon: UIImage(systemName: "note"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
-        },
+            },
             
         ]))
     }
@@ -129,18 +145,18 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRow(at: indexPath, animated: true)
         let model = models[indexPath.section].options[indexPath.row]
         model.handler()
-                
+        
         if (indexPath.row == 0){
             let vc = PhotosViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
         
-        else if (indexPath.row == 1){
-            let vc = FilesViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        }
+//        else if (indexPath.row == 1){
+//            let vc = FilesViewController()
+//            navigationController?.pushViewController(vc, animated: true)
+//        }
         
-        else if (indexPath.row == 2){
+        else if (indexPath.row == 1){
             let vc = MyBagViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -199,5 +215,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        deleteTrip.translatesAutoresizingMaskIntoConstraints = false
+        deleteTrip.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        deleteTrip.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }

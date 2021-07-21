@@ -12,9 +12,9 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     var imgs = [UIImage]()
     
     let imgView: UIImageView = {
-           let theImageView = UIImageView()
-           theImageView.translatesAutoresizingMaskIntoConstraints = false
-           return theImageView
+        let theImageView = UIImageView()
+        theImageView.translatesAutoresizingMaskIntoConstraints = false
+        return theImageView
     }()
     
     private var collectionView: UICollectionView?
@@ -27,11 +27,11 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
             self.present(image, animated: true, completion: nil)
         }
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            self.dismiss(animated: true, completion: nil)
-        }
-
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         imgs.append(image)
@@ -51,17 +51,17 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-                
+        
         guard let collectionView = collectionView else {
             return
         }
-                
+        
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
-                
-                
+        
+        
         view.addSubview(collectionView)
         
         view.addSubview(imgView)
@@ -79,14 +79,14 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-      
+        
     }
     
     // Quantidade de células
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imgs.count
-        }
-        
+    }
+    
     // Customização de células
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {preconditionFailure()}

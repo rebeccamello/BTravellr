@@ -15,6 +15,7 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var items = [listItem]()
     var newItem = listItem(title: "", isChecked: false)
+    var numberOfRows = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.dataSource = self
         self.tableView.delegate = self
         setConstraints()
+        numberOfRows = items.count
     }
     
     @objc func actItem() -> Void{
@@ -37,31 +39,33 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
+        numberOfRows += 1
     }
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-            table.translatesAutoresizingMaskIntoConstraints = false
-            table.backgroundColor = .systemBackground
-            table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-            return table
-        }()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .systemBackground
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        return table
+    }()
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return numberOfRows
     }
-        
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = item.title
-//        print("aqui:", item.isChecked)
+        //        print("aqui:", item.isChecked)
         if item.isChecked{
-//            print("checou")
+            //            print("checou")
             cell.accessoryType = .checkmark
         }
         else{
-//            print("deschecou")
+            //            print("deschecou")
             cell.accessoryType = .none
         }
         return cell
@@ -70,10 +74,26 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         var item = items[indexPath.row]
-//        print(item.isChecked)
+        //        print(item.isChecked)
         item.isChecked = !item.isChecked
-//        print(item.isChecked)
+        //        print(item.isChecked)
         tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func delete(rowIndexPathAt indexPath: IndexPath) -> UIContextualAction{
+        let action = UIContextualAction(style: .destructive, title: "Deletar") { [weak self] (_, _, _) in
+            guard let self = self else {return}
+            self.numberOfRows -= 1
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.reloadData()
+        }
+        return action
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = self.delete(rowIndexPathAt: indexPath)
+        let swipe = UISwipeActionsConfiguration(actions: [delete])
+        return swipe
     }
     
     func setConstraints(){
@@ -89,6 +109,4 @@ extension MyBagViewController: NewItemViewControllerDelegate{
         items.append(listItem(title: title))
         tableView.reloadData()
     }
-    
-    
 }
