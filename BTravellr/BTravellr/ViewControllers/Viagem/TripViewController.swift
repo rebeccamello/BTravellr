@@ -23,13 +23,27 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let but = UIButton()
     let nameLabel = UILabel()
+    let localLabel = UILabel()
     let idaLabel = UILabel()
     let voltaLabel = UILabel()
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
     var models = [Section]()
     let deleteTrip = UIButton()
+    var inputName = UILabel()
+    var inputDestination = UILabel()
+    var inputDataIda = UILabel()
+    var inputDataVolta = UILabel()
+    var trip: Trip
     
+    init(tripInfos: Trip) {
+        self.trip = tripInfos
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // tablle view
     private let tableView: UITableView = {
@@ -65,7 +79,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -80,8 +93,13 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(nameLabel)
         view.addSubview(idaLabel)
         view.addSubview(voltaLabel)
+        view.addSubview(localLabel)
         view.addSubview(but)
         view.addSubview(deleteTrip)
+        view.addSubview(inputName)
+        view.addSubview(inputDestination)
+        view.addSubview(inputDataIda)
+        view.addSubview(inputDataVolta)
         
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
@@ -101,6 +119,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         setConstraints()
     }
     
+    //MARK: Alerta
     @objc func actAlert(){
         let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se exclui-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
@@ -109,6 +128,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(alert, animated: true)
     }
     
+    //MARK: Table View para páginas
     func configure(){
         models.append(Section(title: "General", options: [
             TripOption(title: "Fotos", icon: UIImage(systemName: "photo"), iconBackgroundColor: #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)){
@@ -189,28 +209,33 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         but.heightAnchor.constraint(equalToConstant: 20).isActive = true
         but.bottomAnchor.constraint(equalTo: imgView.bottomAnchor, constant: -10).isActive = true
         
-        
         nameLabel.text = "Nome:"
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         nameLabel.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        nameLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        localLabel.text = "Destino:"
+        localLabel.translatesAutoresizingMaskIntoConstraints = false
+        localLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        localLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        localLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        localLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         idaLabel.text = "Ida:"
         idaLabel.translatesAutoresizingMaskIntoConstraints = false
         idaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        idaLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
-        idaLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        idaLabel.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
+        idaLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         idaLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         voltaLabel.text = "Volta:"
         voltaLabel.translatesAutoresizingMaskIntoConstraints = false
         voltaLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         voltaLabel.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
-        voltaLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        voltaLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         voltaLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: voltaLabel.bottomAnchor, constant: 20).isActive = true
@@ -223,5 +248,33 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         deleteTrip.widthAnchor.constraint(equalToConstant: 200).isActive = true
         deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        inputName.text = trip.name
+        inputName.translatesAutoresizingMaskIntoConstraints = false
+        inputName.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10).isActive = true
+        inputName.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
+        inputName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputName.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        inputDestination.translatesAutoresizingMaskIntoConstraints = false
+        inputDestination.text = trip.destination
+        inputDestination.leadingAnchor.constraint(equalTo: localLabel.trailingAnchor, constant: 10).isActive = true
+        inputDestination.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        inputDestination.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputDestination.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        inputDataIda.translatesAutoresizingMaskIntoConstraints = false
+        inputDataIda.text = trip.dataIda
+        inputDataIda.leadingAnchor.constraint(equalTo: idaLabel.trailingAnchor, constant: 10).isActive = true
+        inputDataIda.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
+        inputDataIda.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputDataIda.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        inputDataVolta.translatesAutoresizingMaskIntoConstraints = false
+        inputDataVolta.text = trip.dataVolta
+        inputDataVolta.leadingAnchor.constraint(equalTo: voltaLabel.trailingAnchor, constant: 10).isActive = true
+        inputDataVolta.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
+        inputDataVolta.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputDataVolta.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 }

@@ -18,14 +18,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     private let coreData = CoreDataStack.shared
     var imgFundo: UIImage = UIImage(named: "collectionBg")!
     
-//    let coreDataStack: CoreDataStack
-//    init(coreDataStack: CoreDataStack) {
-//        self.coreDataStack = coreDataStack
-//        super.init(nibName: nil, bundle: nil) }
-//    required init?(coder: NSCoder) {
-//        fatalError("Not implemented")
-//    }
-    
     private lazy var frc: NSFetchedResultsController<Trip> = {
         let fetchRequest: NSFetchRequest<Trip> = Trip.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Trip.name, ascending: false)]
@@ -78,7 +70,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(collectionView)
         
         
-        but2.addTarget(self, action: #selector(actTrip), for: .touchDown)
+//        but2.addTarget(self, action: #selector(actTrip), for: .touchDown)
         setConstraints()
     }
 
@@ -117,10 +109,10 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         present(vc, animated: true)
     }
     
-    @objc func actTrip() -> Void{
-        let vc = TripViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
+//    @objc func actTrip() -> Void{
+//        let vc = TripViewController()
+//        navigationController?.pushViewController(vc, animated: true)
+//    }
     
     //MARK: CollectionView Delegate
     
@@ -137,10 +129,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        collectionView?.performBatchUpdates()
-//    }
-    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
@@ -156,6 +144,16 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         collectionView?.reloadData()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let object = frc.object(at: indexPath)
+        let vc = TripViewController(tripInfos: object)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let vc = segue.destination as? PopUpViewController
+//        vc?.pergunta = perguntas[selectedIndex]
+//    }
 
 }
 
@@ -164,4 +162,3 @@ extension FirstSceneViewController: NewTripViewControllerDelegate {
         collectionView?.reloadData()
     }
 }
-

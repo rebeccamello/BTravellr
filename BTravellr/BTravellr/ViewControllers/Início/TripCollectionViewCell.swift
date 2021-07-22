@@ -11,6 +11,7 @@ class TripCollectionViewCell: UICollectionViewCell {
     var img: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 12
         return imageView
     }()
     
