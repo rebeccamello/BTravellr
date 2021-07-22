@@ -66,7 +66,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             cell.placeholder = textos[indexPath.row]
             cell.dataTextField.tag = indexPath.row
             cell.dataTextField.delegate = self
-//            cell.backgroundColor = .white
+
             return cell
         }
             

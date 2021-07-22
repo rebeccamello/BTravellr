@@ -56,6 +56,11 @@ class CoreDataStack {
         try save()
         return trip
     }
+    
+    func deleteTrip(trip: Trip) throws{
+        mainContext.delete(trip)
+        try save()
+    }
 }
 
 enum CoreDataStackError: Error {

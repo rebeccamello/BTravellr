@@ -11,7 +11,6 @@ import CoreData
 class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
 
     let label = UILabel()
-    let but2 = UIButton()
     var but: UIBarButtonItem?
     private var collectionView: UICollectionView?
     
@@ -41,10 +40,12 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         navigationItem.rightBarButtonItem = but!
         
         view.addSubview(label)
-        view.addSubview(but2)
         
         if frc.fetchedObjects?.count != 0 {
             label.isHidden = true
+        }
+        else{
+            label.isHidden = false
         }
         
         let layout = UICollectionViewFlowLayout()
@@ -68,9 +69,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         
         view.addSubview(collectionView)
-        
-        
-//        but2.addTarget(self, action: #selector(actTrip), for: .touchDown)
         setConstraints()
     }
 
@@ -80,20 +78,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         label.text = "Ainda não há nenhuma viagem registrada"
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
-        
-        //botao2
-        but2.translatesAutoresizingMaskIntoConstraints = false
-        but2.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        but2.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        but2.layer.cornerRadius = 15
-        but2.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        but2.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 45).isActive = true
-        but2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
-        but2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
-        but2.setTitle("viagem", for: .normal)
-        but2.setTitleColor(.white, for: .normal)
-        but2.setTitleColor(.white, for: .highlighted)
-        but2.backgroundColor = #colorLiteral(red: 0.2103129625, green: 0.6795147061, blue: 0.6962627769, alpha: 1)
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -108,11 +92,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
     }
-    
-//    @objc func actTrip() -> Void{
-//        let vc = TripViewController()
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
     
     //MARK: CollectionView Delegate
     
