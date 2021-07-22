@@ -221,7 +221,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         deleteTrip.translatesAutoresizingMaskIntoConstraints = false
         deleteTrip.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         deleteTrip.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }

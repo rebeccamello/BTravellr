@@ -92,6 +92,7 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = self.delete(rowIndexPathAt: indexPath)
+        items.remove(at: indexPath.row)
         let swipe = UISwipeActionsConfiguration(actions: [delete])
         return swipe
     }

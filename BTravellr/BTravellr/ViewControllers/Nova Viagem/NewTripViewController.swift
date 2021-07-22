@@ -9,12 +9,19 @@ import UIKit
 
 struct TripStruct{
     var name: String
-    var destine: String
+    var destination: String
+    var dataIda: String
+    var dataVolta: String
+}
+
+protocol NewTripViewControllerDelegate: AnyObject {
+    func didRegister()
 }
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     
-    var trip = TripStruct(name: "", destine: "")
+    var trip = TripStruct(name: "", destination: "", dataIda: "", dataVolta: "")
+    weak var delegate: NewTripViewControllerDelegate?
     let textos = ["Nome", "Destino", "Ida", "Volta"]
     var barBut: UIBarButtonItem?
     var barBut2: UIBarButtonItem?
@@ -68,7 +75,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     
     enum TextFieldData: Int {
         case name = 0
-        case destine = 1
+        case destination = 1
+        case dataIda = 2
+        case dataVolta = 3
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField){
@@ -80,12 +89,17 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         case TextFieldData.name.rawValue:
             trip.name = textField.text ?? ""
 
-        case TextFieldData.destine.rawValue:
-            trip.destine = textField.text ?? ""
+        case TextFieldData.destination.rawValue:
+            trip.destination = textField.text ?? ""
+            
+        case TextFieldData.dataIda.rawValue:
+            trip.dataIda = textField.text ?? ""
+            
+        case TextFieldData.dataVolta.rawValue:
+            trip.dataVolta = textField.text ?? ""
         default:
             break
         }
-        print(trip)
     }
     
     override func viewDidLoad() {
@@ -94,7 +108,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         title = "Nova viagem"
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
-        barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actHome))
+        barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actSave))
         barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
         
         navigationItem.rightBarButtonItem = barBut
@@ -141,6 +155,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         
     @IBAction func actHome() -> Void{
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func actSave(){
+        self.dismiss(animated: true, completion: nil)
+        _ = try? CoreDataStack.shared.createTrip(name: trip.name, destination: trip.destination, dataIda: trip.dataIda, dataVolta: trip.dataVolta)
+        delegate?.didRegister()
     }
     
     
