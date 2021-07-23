@@ -10,13 +10,12 @@ import CoreData
 
 class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
     
-    struct listItem {
-        var title: String
-        var isChecked: Bool = false
-    }
+//    struct listItem {
+//        var title: String
+//        var isChecked: Bool = false
+//    }
     
-    var items = [listItem]()
-    var newItem = listItem(title: "", isChecked: false)
+    var items = [Bag]()
     var numberOfRows = Int()
     var trip: Trip
     
@@ -24,10 +23,7 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.trip = tripInfos
         super.init(nibName: nil, bundle: nil)
         let bags = (trip.tripBagItems?.allObjects as? [Bag])
-        items = bags?.map{
-            bag -> listItem in
-            listItem(title: bag.itemName ?? "")
-        } ?? []
+        items = bags ?? []
     }
     
     required init?(coder: NSCoder) {
@@ -84,27 +80,27 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = item.title
+        cell.textLabel?.text = item.itemName
         //        print("aqui:", item.isChecked)
-        if item.isChecked{
-            //            print("checou")
-            cell.accessoryType = .checkmark
-        }
-        else{
-            //            print("deschecou")
-            cell.accessoryType = .none
-        }
+//        if item.isChecked{
+//            //            print("checou")
+//            cell.accessoryType = .checkmark
+//        }
+//        else{
+//            //            print("deschecou")
+//            cell.accessoryType = .none
+//        }
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        var item = items[indexPath.row]
-        //        print(item.isChecked)
-        item.isChecked = !item.isChecked
-        //        print(item.isChecked)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        var item = items[indexPath.row]
+//        //        print(item.isChecked)
+////        item.isChecked = !item.isChecked
+//        //        print(item.isChecked)
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+//    }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -139,19 +135,19 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
 //        }
 //        return action
 //    }
-
+//
 //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 //        items.remove(at: indexPath.row)
 //        let item = items[indexPath.row]
-////        let swipe = UISwipeActionsConfiguration(actions: delete(item: item))
-////        return swipe
-//        return
+//        let swipe = UISwipeActionsConfiguration(actions: delete(item: item))
+//        return swipe
+////        return
 //    }
 }
 
 extension MyBagViewController: NewItemViewControllerDelegate{
-    func updateItem(title: String) {
-        items.append(listItem(title: title))
+    func updateItem(bag: Bag) {
+        items.append(bag)
         tableView.reloadData()
     }
 }

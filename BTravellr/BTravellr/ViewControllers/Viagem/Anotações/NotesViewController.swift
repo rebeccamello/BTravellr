@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class NotesViewController: UIViewController{
     let textView = UITextView()
     var trip: Trip?
     var note: Notes?
     var saveBut: UIBarButtonItem?
+    var cancellables = Set <AnyCancellable>()
 
     init(trip: Trip) {
         self.trip = trip
@@ -33,10 +35,14 @@ class NotesViewController: UIViewController{
             textView.text = note.text
         }
         saveBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(saveNote))
-        
         navigationItem.rightBarButtonItem = saveBut
         
         setConstraints()
+        
+        //Salvar quando para de escrever
+        NotificationCenter.default.publisher(for: UITextView.textDidEndEditingNotification)
+            .sink(receiveValue: {[weak self] _ in self?.saveNote()})
+            .store(in: &cancellables)
     }
     
     func setConstraints(){
@@ -49,9 +55,6 @@ class NotesViewController: UIViewController{
     }
     
     @objc func saveNote(){
-//        if textView.text != ""{
-//            note.text = textView.text
-//        }
         if note == nil{
             try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
         }

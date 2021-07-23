@@ -8,5 +8,5 @@
 import Foundation
 
 protocol NewItemViewControllerDelegate: AnyObject {
-    func updateItem(title: String)
+    func updateItem(bag: Bag)
 }

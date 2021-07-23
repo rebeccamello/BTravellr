@@ -191,88 +191,88 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     func setConstraints(){
         
         // Meios de Transportes
-        transpLabel.translatesAutoresizingMaskIntoConstraints = false
+//        transpLabel.translatesAutoresizingMaskIntoConstraints = false
         transpLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
         transpLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         transpLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
         transpLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         // Botoes
-        carBut.translatesAutoresizingMaskIntoConstraints = false
+//        carBut.translatesAutoresizingMaskIntoConstraints = false
         carBut.topAnchor.constraint(equalTo: transpLabel.bottomAnchor, constant: 20).isActive = true
         carBut.trailingAnchor.constraint(equalTo: planeBut.leadingAnchor, constant: -view.bounds.height*0.035).isActive = true
         carBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         carBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
-        planeBut.translatesAutoresizingMaskIntoConstraints = false
+//        planeBut.translatesAutoresizingMaskIntoConstraints = false
         planeBut.centerYAnchor.constraint(equalTo: carBut.centerYAnchor).isActive = true
         planeBut.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -view.bounds.height*0.06).isActive = true
         planeBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         planeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
-        busBut.translatesAutoresizingMaskIntoConstraints = false
+//        busBut.translatesAutoresizingMaskIntoConstraints = false
         busBut.centerYAnchor.constraint(equalTo: carBut.centerYAnchor).isActive = true
         busBut.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: view.bounds.height*0.05).isActive = true
         busBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         busBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
-        footBut.translatesAutoresizingMaskIntoConstraints = false
+//        footBut.translatesAutoresizingMaskIntoConstraints = false
         footBut.centerYAnchor.constraint(equalTo: carBut.centerYAnchor).isActive = true
         footBut.leadingAnchor.constraint(equalTo: busBut.trailingAnchor, constant: view.bounds.height*0.035).isActive = true
         footBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         footBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
-        boatBut.translatesAutoresizingMaskIntoConstraints = false
+//        boatBut.translatesAutoresizingMaskIntoConstraints = false
         boatBut.centerYAnchor.constraint(equalTo: bikeBut.centerYAnchor).isActive = true
         boatBut.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         boatBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         boatBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
-        bikeBut.translatesAutoresizingMaskIntoConstraints = false
+//        bikeBut.translatesAutoresizingMaskIntoConstraints = false
         bikeBut.trailingAnchor.constraint(equalTo: boatBut.leadingAnchor,constant: -view.bounds.height*0.04).isActive = true
         bikeBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         bikeBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         bikeBut.topAnchor.constraint(equalTo: carLabel.bottomAnchor, constant: view.bounds.height*0.05).isActive = true
         
         
-        tramBut.translatesAutoresizingMaskIntoConstraints = false
+//        tramBut.translatesAutoresizingMaskIntoConstraints = false
         tramBut.centerYAnchor.constraint(equalTo: bikeBut.centerYAnchor).isActive = true
         tramBut.leadingAnchor.constraint(equalTo: boatBut.trailingAnchor, constant: view.bounds.height*0.04).isActive = true
         tramBut.heightAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         tramBut.widthAnchor.constraint(equalToConstant: view.bounds.height*0.075).isActive = true
         
         // Labels
-        carLabel.translatesAutoresizingMaskIntoConstraints = false
+//        carLabel.translatesAutoresizingMaskIntoConstraints = false
         carLabel.topAnchor.constraint(equalTo: carBut.bottomAnchor, constant: 5).isActive = true
         carLabel.centerXAnchor.constraint(equalTo: carBut.centerXAnchor, constant: 0).isActive = true
         carLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        planeLabel.translatesAutoresizingMaskIntoConstraints = false
+//        planeLabel.translatesAutoresizingMaskIntoConstraints = false
         planeLabel.topAnchor.constraint(equalTo: planeBut.bottomAnchor, constant: 5).isActive = true
         planeLabel.centerXAnchor.constraint(equalTo: planeBut.centerXAnchor, constant: 0).isActive = true
         planeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        busLabel.translatesAutoresizingMaskIntoConstraints = false
+//        busLabel.translatesAutoresizingMaskIntoConstraints = false
         busLabel.topAnchor.constraint(equalTo: busBut.bottomAnchor, constant: 5).isActive = true
         busLabel.centerXAnchor.constraint(equalTo: busBut.centerXAnchor, constant: 0).isActive = true
         busLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        footLabel.translatesAutoresizingMaskIntoConstraints = false
+//        footLabel.translatesAutoresizingMaskIntoConstraints = false
         footLabel.topAnchor.constraint(equalTo: footBut.bottomAnchor, constant: 5).isActive = true
         footLabel.centerXAnchor.constraint(equalTo: footBut.centerXAnchor, constant: 0).isActive = true
         footLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        bikeLabel.translatesAutoresizingMaskIntoConstraints = false
+//        bikeLabel.translatesAutoresizingMaskIntoConstraints = false
         bikeLabel.topAnchor.constraint(equalTo: bikeBut.bottomAnchor, constant: 5).isActive = true
         bikeLabel.centerXAnchor.constraint(equalTo: bikeBut.centerXAnchor, constant: 0).isActive = true
         bikeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        boatLabel.translatesAutoresizingMaskIntoConstraints = false
+//        boatLabel.translatesAutoresizingMaskIntoConstraints = false
         boatLabel.topAnchor.constraint(equalTo: boatBut.bottomAnchor, constant: 5).isActive = true
         boatLabel.centerXAnchor.constraint(equalTo: boatBut.centerXAnchor, constant: 0).isActive = true
         boatLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        tramLabel.translatesAutoresizingMaskIntoConstraints = false
+//        tramLabel.translatesAutoresizingMaskIntoConstraints = false
         tramLabel.topAnchor.constraint(equalTo: tramBut.bottomAnchor, constant: 5).isActive = true
         tramLabel.centerXAnchor.constraint(equalTo: tramBut.centerXAnchor, constant: 0).isActive = true
         tramLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true

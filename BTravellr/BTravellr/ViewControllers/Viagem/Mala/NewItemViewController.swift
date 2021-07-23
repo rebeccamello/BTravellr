@@ -49,10 +49,9 @@ class NewItemViewController: UIViewController {
     
     @IBAction func done() -> Void{
         name = textField.text!
-        self.delegate?.updateItem(title: name)
         self.dismiss(animated: true, completion: nil)
-        _ = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip)
-        delegate?.updateItem(title: name)
+        guard let bag = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip) else{ return}
+        delegate?.updateItem(bag: bag)
     }
     
     func setConstraints(){
