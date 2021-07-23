@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
-class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+    
     struct listItem{
         var title: String
         var isChecked: Bool = false
@@ -16,6 +18,21 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     var items = [listItem]()
     var newItem = listItem(title: "", isChecked: false)
     var numberOfRows = Int()
+    var trip: Trip
+    
+    init(tripInfos: Trip) {
+        self.trip = tripInfos
+        super.init(nibName: nil, bundle: nil)
+        let bags = (trip.tripBagItems?.allObjects as? [Bag])
+        items = bags?.map{
+            bag -> listItem in
+            listItem(title: bag.itemName ?? "")
+        } ?? []
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +50,23 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         numberOfRows = items.count
     }
     
+    func setConstraints(){
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.1).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height*0.2).isActive = true
+    }
+    
     @objc func actItem() -> Void{
-        let root = NewItemViewController()
+        let root = NewItemViewController(tripInfos: trip)
         root.delegate = self
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
         numberOfRows += 1
     }
+    
+    //MARK: TableView
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -80,6 +106,29 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        default:
+            break
+        }
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
     private func delete(rowIndexPathAt indexPath: IndexPath) -> UIContextualAction{
         let action = UIContextualAction(style: .destructive, title: "Deletar") { [weak self] (_, _, _) in
             guard let self = self else {return}
@@ -95,13 +144,6 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         items.remove(at: indexPath.row)
         let swipe = UISwipeActionsConfiguration(actions: [delete])
         return swipe
-    }
-    
-    func setConstraints(){
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        tableView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.1).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     }
 }
 

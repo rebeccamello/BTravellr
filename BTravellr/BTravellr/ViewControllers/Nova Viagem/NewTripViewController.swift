@@ -14,10 +14,6 @@ struct TripStruct{
     var dataVolta: String
 }
 
-protocol NewTripViewControllerDelegate: AnyObject {
-    func didRegister()
-}
-
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     
     var trip = TripStruct(name: "", destination: "", dataIda: "", dataVolta: "")

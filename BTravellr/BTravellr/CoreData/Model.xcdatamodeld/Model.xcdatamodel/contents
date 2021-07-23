@@ -8,7 +8,7 @@
         <attribute name="dataVolta" optional="YES" attributeType="String"/>
         <attribute name="destination" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="bagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag"/>
+        <relationship name="tripBagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag"/>
     </entity>
     <elements>
         <element name="Trip" positionX="-63" positionY="-18" width="128" height="104"/>

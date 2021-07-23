@@ -47,6 +47,8 @@ class CoreDataStack {
         }
     }
     
+    //MARK: Viagem
+    
     func createTrip(name: String, destination: String, dataIda: String, dataVolta: String) throws -> Trip{
         let trip = Trip(context: mainContext)
         trip.name = name
@@ -59,6 +61,20 @@ class CoreDataStack {
     
     func deleteTrip(trip: Trip) throws{
         mainContext.delete(trip)
+        try save()
+    }
+    
+    //MARK: Lista da Mala
+    func createBagItem(itemName: String, trip: Trip) throws -> Bag{
+        let item = Bag(context: mainContext)
+        item.itemName = itemName
+        trip.addToTripBagItems(item)
+        try save()
+        return item
+    }
+    
+    func deleteBagItem(item: Bag) throws{
+        mainContext.delete(item)
         try save()
     }
 }

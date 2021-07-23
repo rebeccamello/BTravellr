@@ -7,10 +7,25 @@
 
 import UIKit
 
+struct ItemStruct{
+    var itemName: String
+}
+
 class NewItemViewController: UIViewController {
     let textField: UITextField = UITextField (frame:CGRect(x: 10, y: 10, width: 50, height: 10))
     var name: String = ""
     weak var delegate: NewItemViewControllerDelegate?
+    let item = ItemStruct(itemName: "")
+    var trip: Trip
+    
+    init(tripInfos: Trip) {
+        self.trip = tripInfos
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +39,7 @@ class NewItemViewController: UIViewController {
         textField.placeholder = "    Nome do item"
         textField.backgroundColor = #colorLiteral(red: 0.9058129191, green: 0.905921638, blue: 0.9057757854, alpha: 1)
         textField.layer.cornerRadius = 10
+        textField.textColor = .black
         setConstraints()
     }
     
@@ -35,6 +51,8 @@ class NewItemViewController: UIViewController {
         name = textField.text!
         self.delegate?.updateItem(title: name)
         self.dismiss(animated: true, completion: nil)
+        _ = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip)
+        delegate?.updateItem(title: name)
     }
     
     func setConstraints(){
