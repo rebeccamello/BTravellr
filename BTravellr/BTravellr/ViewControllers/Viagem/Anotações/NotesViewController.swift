@@ -47,7 +47,7 @@ class NotesViewController: UIViewController{
     
     func setConstraints(){
         textView.frame = CGRect(x: 0, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
-        textView.backgroundColor = #colorLiteral(red: 0.9416348338, green: 0.9360371232, blue: 0.9459378123, alpha: 1)
+        textView.backgroundColor = .systemBackground
         textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
