@@ -10,7 +10,7 @@ import CoreData
 
 class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
     
-    struct listItem{
+    struct listItem {
         var title: String
         var isChecked: Bool = false
     }
@@ -129,22 +129,24 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.endUpdates()
     }
     
-    private func delete(rowIndexPathAt indexPath: IndexPath) -> UIContextualAction{
-        let action = UIContextualAction(style: .destructive, title: "Deletar") { [weak self] (_, _, _) in
-            guard let self = self else {return}
-            self.numberOfRows -= 1
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.tableView.reloadData()
-        }
-        return action
-    }
+//    private func delete(item: Bag) -> UIContextualAction{
+//        let action = UIContextualAction(style: .destructive, title: "Deletar") {_,_,_ in
+//            do{
+//                try CoreDataStack.shared.deleteBagItem(item: item)
+//            } catch{
+//                print("Falhou")
+//            }
+//        }
+//        return action
+//    }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = self.delete(rowIndexPathAt: indexPath)
-        items.remove(at: indexPath.row)
-        let swipe = UISwipeActionsConfiguration(actions: [delete])
-        return swipe
-    }
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        items.remove(at: indexPath.row)
+//        let item = items[indexPath.row]
+////        let swipe = UISwipeActionsConfiguration(actions: delete(item: item))
+////        return swipe
+//        return
+//    }
 }
 
 extension MyBagViewController: NewItemViewControllerDelegate{

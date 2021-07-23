@@ -125,11 +125,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let deleteAction = UIAlertAction(title: "Sim", style: .default) { (action) in
             self.dismiss(animated: true, completion: nil)
             _ = try? CoreDataStack.shared.deleteTrip(trip: self.trip)
-            let vc = FirstSceneViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-//            vc.modalPresentationStyle = .fullScreen
-//            vc.modalTransitionStyle = .crossDissolve
-//            self.present(vc, animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         alert.addAction(deleteAction)
         alert.addAction(UIAlertAction(title: "Não", style: .cancel, handler: nil))
@@ -193,7 +189,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         else{
-            let vc = NotesViewController()
+            let vc = NotesViewController(trip: trip)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

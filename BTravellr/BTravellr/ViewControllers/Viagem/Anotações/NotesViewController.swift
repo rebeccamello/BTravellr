@@ -9,6 +9,19 @@ import UIKit
 
 class NotesViewController: UIViewController{
     let textView = UITextView()
+    var trip: Trip?
+    var note: Notes?
+    var saveBut: UIBarButtonItem?
+
+    init(trip: Trip) {
+        self.trip = trip
+        self.note = trip.tripNotes
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +29,12 @@ class NotesViewController: UIViewController{
 //        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Anotações"
         view.addSubview(textView)
+        if let note = note{
+            textView.text = note.text
+        }
+        saveBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(saveNote))
+        
+        navigationItem.rightBarButtonItem = saveBut
         
         setConstraints()
     }
@@ -27,5 +46,17 @@ class NotesViewController: UIViewController{
         textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    @objc func saveNote(){
+//        if textView.text != ""{
+//            note.text = textView.text
+//        }
+        if note == nil{
+            try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
+        }
+        else{
+            try? CoreDataStack.shared.editNote(note: note!, text: textView.text!)
+        }
     }
 }

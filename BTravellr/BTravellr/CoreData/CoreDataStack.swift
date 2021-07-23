@@ -77,6 +77,20 @@ class CoreDataStack {
         mainContext.delete(item)
         try save()
     }
+    
+    //MARK: Notes
+    func createNote(textInput: String, trip: Trip) throws{
+        let text = Notes(context: mainContext)
+        text.text = textInput
+        trip.tripNotes = text
+        try save()
+    }
+    
+    func editNote(note: Notes, text: String) throws{
+        note.text = text
+        try save()
+        
+    }
 }
 
 enum CoreDataStackError: Error {
