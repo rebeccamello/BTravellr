@@ -8,15 +8,9 @@
 import UIKit
 import CoreData
 
-class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
-    
-//    struct listItem {
-//        var title: String
-//        var isChecked: Bool = false
-//    }
+class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     var items = [Bag]()
-    var numberOfRows = Int()
     var trip: Trip
     
     init(tripInfos: Trip) {
@@ -43,7 +37,6 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.tableView.dataSource = self
         self.tableView.delegate = self
         setConstraints()
-        numberOfRows = items.count
     }
     
     func setConstraints(){
@@ -59,10 +52,9 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
-        numberOfRows += 1
     }
     
-    //MARK: TableView
+    //MARK: -TableView
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -72,77 +64,25 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         return table
     }()
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRows
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = item.itemName
-        //        print("aqui:", item.isChecked)
-//        if item.isChecked{
-//            //            print("checou")
-//            cell.accessoryType = .checkmark
-//        }
-//        else{
-//            //            print("deschecou")
-//            cell.accessoryType = .none
-//        }
         return cell
     }
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        var item = items[indexPath.row]
-//        //        print(item.isChecked)
-////        item.isChecked = !item.isChecked
-//        //        print(item.isChecked)
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-//    }
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .insert:
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-        default:
-            break
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let item = items[indexPath.row]
+            try! CoreDataStack.shared.deleteBagItem(item: item)
+            items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
-    
-//    private func delete(item: Bag) -> UIContextualAction{
-//        let action = UIContextualAction(style: .destructive, title: "Deletar") {_,_,_ in
-//            do{
-//                try CoreDataStack.shared.deleteBagItem(item: item)
-//            } catch{
-//                print("Falhou")
-//            }
-//        }
-//        return action
-//    }
-//
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        items.remove(at: indexPath.row)
-//        let item = items[indexPath.row]
-//        let swipe = UISwipeActionsConfiguration(actions: delete(item: item))
-//        return swipe
-////        return
-//    }
 }
 
 extension MyBagViewController: NewItemViewControllerDelegate{

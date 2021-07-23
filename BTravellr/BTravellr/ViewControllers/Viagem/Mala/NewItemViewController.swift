@@ -50,7 +50,7 @@ class NewItemViewController: UIViewController {
     @IBAction func done() -> Void{
         name = textField.text!
         self.dismiss(animated: true, completion: nil)
-        guard let bag = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip) else{ return}
+        guard let bag = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip) else{ preconditionFailure()}
         delegate?.updateItem(bag: bag)
     }
     

@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bag" representedClassName="Bag" syncable="YES" codeGenerationType="class">
         <attribute name="itemName" optional="YES" attributeType="String"/>
+        <relationship name="trips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripBagItems" inverseEntity="Trip"/>
     </entity>
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
         <attribute name="text" optional="YES" attributeType="String"/>
@@ -11,12 +12,12 @@
         <attribute name="dataVolta" optional="YES" attributeType="String"/>
         <attribute name="destination" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="tripBagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag"/>
+        <relationship name="tripBagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag" inverseName="trips" inverseEntity="Bag"/>
         <relationship name="tripNotes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
     </entity>
     <elements>
         <element name="Trip" positionX="-63" positionY="-18" width="128" height="119"/>
-        <element name="Bag" positionX="-45" positionY="27" width="128" height="44"/>
+        <element name="Bag" positionX="-45" positionY="27" width="128" height="59"/>
         <element name="Notes" positionX="-27" positionY="54" width="128" height="44"/>
     </elements>
 </model>

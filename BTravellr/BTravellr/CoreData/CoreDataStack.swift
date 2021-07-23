@@ -39,7 +39,8 @@ class CoreDataStack {
         if mainContext.hasChanges {
             do {
                 try mainContext.save()
-            } catch {
+            } catch(let error) {
+                print(error)
                 throw CoreDataStackError.failedToSave
             }
         } else {
@@ -89,7 +90,6 @@ class CoreDataStack {
     func editNote(note: Notes, text: String) throws{
         note.text = text
         try save()
-        
     }
 }
 
