@@ -9,8 +9,22 @@ import UIKit
 
 class PhotosViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var imgs = [UIImage]()
+    var trip: Trip?
+    var photos = [Images]()
+    var pickedPhoto = UIImage()
     
+    init(trip: Trip) {
+        self.trip = trip
+        super.init(nibName: nil, bundle: nil)
+        let img = (trip.tripPhotos?.allObjects as? [Images])
+        photos = img ?? []
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var imgs = [UIImage]()
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,8 +58,13 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewImage))
         title = "Fotos"
+        
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewImage))
+        let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(SavePhoto))
+        
+        navigationItem.rightBarButtonItems = [addButton, saveButton]
+        
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
@@ -91,6 +110,15 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {preconditionFailure()}
         cell.img.image = imgs[indexPath.row]
+        pickedPhoto = imgs[indexPath.row]
         return cell
+    }
+    
+    @objc func SavePhoto(){
+        print("oi")
+        if let imageData = pickedPhoto.pngData(){ // converte a imagem em data
+            print("oi2")
+            try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
+        }
     }
 }

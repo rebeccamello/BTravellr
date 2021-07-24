@@ -174,7 +174,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         model.handler()
         
         if (indexPath.row == 0){
-            let vc = PhotosViewController()
+            let vc = PhotosViewController(trip: trip)
             navigationController?.pushViewController(vc, animated: true)
         }
         

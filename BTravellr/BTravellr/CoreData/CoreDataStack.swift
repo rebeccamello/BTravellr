@@ -91,6 +91,16 @@ class CoreDataStack {
         note.text = text
         try save()
     }
+    
+    //MARK: Photos
+    func saveImage(data: Data, trip: Trip) throws{
+        let imageInstance = Images(context: mainContext)
+        imageInstance.img = data
+        trip.addToTripPhotos(imageInstance)
+        try save()
+        print("Image is saved")
+    }
+    
 }
 
 enum CoreDataStackError: Error {
