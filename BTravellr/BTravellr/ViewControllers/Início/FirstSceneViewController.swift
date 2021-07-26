@@ -87,7 +87,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     @objc func actNewTrip() -> Void{
-        let root = NewTripViewController(tripInfos: Trip())
+        let root = NewTripViewController(trip: nil)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)

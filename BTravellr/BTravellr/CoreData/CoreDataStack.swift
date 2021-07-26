@@ -64,6 +64,7 @@ class CoreDataStack {
         try save()
     }
     
+    
     //MARK: Bag Items
     func createBagItem(itemName: String, trip: Trip) throws -> Bag{
         let item = Bag(context: mainContext)

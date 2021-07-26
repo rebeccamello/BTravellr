@@ -21,6 +21,7 @@ struct TripOption{
 
 class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
+    weak var delegate: TripViewControllerDelegate?
     let but = UIButton()
     let localLabel = UILabel()
     let idaLabel = UILabel()
@@ -52,6 +53,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return table
     }()
     
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -89,6 +91,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.frame = view.bounds
         
         setConstraints()
+        setInputs()
     }
     
     //MARK: Cover Image
@@ -211,8 +214,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    @IBAction func actNewTrip() -> Void{
-        let root = NewTripViewController(tripInfos: trip)
+    @objc func actNewTrip() -> Void{
+        let root = NewTripViewController(trip: trip)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
@@ -264,7 +267,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        inputName.text = trip.name
+        //inputs
         inputName.translatesAutoresizingMaskIntoConstraints = false
         inputName.font = UIFont.boldSystemFont(ofSize: 20.0)
         inputName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
@@ -273,24 +276,35 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         inputName.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputDestination.translatesAutoresizingMaskIntoConstraints = false
-        inputDestination.text = trip.destination
         inputDestination.leadingAnchor.constraint(equalTo: localLabel.trailingAnchor, constant: 10).isActive = true
         inputDestination.topAnchor.constraint(equalTo: inputName.bottomAnchor, constant: 10).isActive = true
         inputDestination.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         inputDestination.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputDataIda.translatesAutoresizingMaskIntoConstraints = false
-        inputDataIda.text = trip.dataIda
         inputDataIda.leadingAnchor.constraint(equalTo: idaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataIda.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
         inputDataIda.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         inputDataIda.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputDataVolta.translatesAutoresizingMaskIntoConstraints = false
-        inputDataVolta.text = trip.dataVolta
         inputDataVolta.leadingAnchor.constraint(equalTo: voltaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataVolta.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
         inputDataVolta.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         inputDataVolta.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    //MARK: Setando os inputs
+    func setInputs(){
+        inputName.text = trip.name
+        inputDestination.text = trip.destination
+        inputDataIda.text = trip.dataIda
+        inputDataVolta.text = trip.dataVolta
+    }
+}
+
+extension TripViewController: TripViewControllerDelegate {
+    func reloadData() {
+        setInputs()
     }
 }

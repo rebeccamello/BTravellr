@@ -16,7 +16,7 @@ struct TripStruct{
 
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     
-    var trip = TripStruct(name: "", destination: "", dataIda: "", dataVolta: "")
+    var trip: Trip?
     weak var delegate: NewTripViewControllerDelegate?
     let textos = ["Nome", "Destino", "Ida", "Volta"]
     var barBut: UIBarButtonItem?
@@ -41,9 +41,14 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     let tramLabel = UILabel()
     let boatLabel = UILabel()
     
-    var tripInit = Trip()
-    init(trip: Trip) {
-        self.tripInit = trip
+    init(trip: Trip?) {
+        self.trip = trip
+        if let tripInfo = trip {
+            self.trip = tripInfo
+        } else{
+            self.trip = try? CoreDataStack.shared.createTrip(name: "", destination: "", dataIda: "", dataVolta: "")
+        }
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,10 +70,27 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "register_cell", for: indexPath) as? TextFieldTableViewCell {
-            
-            // MARK: Remove selection style
             cell.selectionStyle = .none
             
+            switch indexPath.row{
+            case 0:
+                cell.dataTextField.text = trip?.name
+                break
+                
+            case 1:
+                cell.dataTextField.text = trip?.destination
+                break
+                
+            case 2:
+                cell.dataTextField.text = trip?.dataIda
+                break
+                
+            case 3:
+                cell.dataTextField.text = trip?.dataVolta
+                break
+            default:
+                print("Falhou")
+            }
             cell.placeholder = textos[indexPath.row]
             cell.dataTextField.tag = indexPath.row
             cell.dataTextField.delegate = self
@@ -93,16 +115,16 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     @objc func valueChanged(_ textField: UITextField){
         switch textField.tag {
         case TextFieldData.name.rawValue:
-            trip.name = textField.text ?? ""
+            trip?.name = textField.text ?? ""
 
         case TextFieldData.destination.rawValue:
-            trip.destination = textField.text ?? ""
+            trip?.destination = textField.text ?? ""
             
         case TextFieldData.dataIda.rawValue:
-            trip.dataIda = textField.text ?? ""
+            trip?.dataIda = textField.text ?? ""
             
         case TextFieldData.dataVolta.rawValue:
-            trip.dataVolta = textField.text ?? ""
+            trip?.dataVolta = textField.text ?? ""
         default:
             break
         }
@@ -158,18 +180,27 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: -35)
         ])
     }
-        
-    @IBAction func actHome() -> Void{
+    
+    //MARK: Funcoes dos botoes
+    @objc func actHome() -> Void{
+        guard let trip = self.trip else{return}
+        try? CoreDataStack.shared.deleteTrip(trip: trip)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func actSave(){
         self.dismiss(animated: true, completion: nil)
-        _ = try? CoreDataStack.shared.createTrip(name: trip.name, destination: trip.destination, dataIda: trip.dataIda, dataVolta: trip.dataVolta)
+        
+        guard let trip = self.trip else{return}
+        if trip.name == "" && trip.destination == "" && trip.dataIda == "" && trip.dataVolta == ""{
+            try? CoreDataStack.shared.deleteTrip(trip: trip)
+            return
+        }
         delegate?.didRegister()
+        try? CoreDataStack.shared.save()
     }
     
-    
+    //MARK: Botões
     func setButtons(){
         carBut.setImage(UIImage(named: "carBut"), for: .normal)
         planeBut.setImage(UIImage(named: "planeBut"), for: .normal)
@@ -198,6 +229,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         boatLabel.font = boatLabel.font.withSize(14)
     }
     
+    //MARK: Constraints
     func setConstraints(){
         
         // Meios de Transportes
