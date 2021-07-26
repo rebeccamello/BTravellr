@@ -103,7 +103,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? TripCollectionViewCell else {preconditionFailure()}
         
         let object = frc.object(at: indexPath)
-        cell.img.image = imgFundo
+        cell.img.image = UIImage(data: object.coverImage ?? Data()) ?? imgFundo
         cell.name.text = object.name
         return cell
     }
@@ -129,10 +129,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         let vc = TripViewController(tripInfos: object)
         navigationController?.pushViewController(vc, animated: true)
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let vc = segue.destination as? PopUpViewController
-//        vc?.pergunta = perguntas[selectedIndex]
-//    }
 
 }
 

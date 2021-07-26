@@ -22,7 +22,6 @@ struct TripOption{
 class TripViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
     let but = UIButton()
-    let nameLabel = UILabel()
     let localLabel = UILabel()
     let idaLabel = UILabel()
     let voltaLabel = UILabel()
@@ -39,6 +38,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     init(tripInfos: Trip) {
         self.trip = tripInfos
         super.init(nibName: nil, bundle: nil)
+        imgView.image = UIImage(data: trip.coverImage ?? Data())
     }
     
     required init?(coder: NSCoder) {
@@ -52,33 +52,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return table
     }()
     
-    // imagem de capa
-    let imgView: UIImageView = {
-        let theImageView = UIImageView()
-        theImageView.translatesAutoresizingMaskIntoConstraints = false
-        return theImageView
-    }()
-    
-    @objc func actNewImage(_ sender: AnyObject){
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            let image = UIImagePickerController()
-            image.delegate = self;
-            image.sourceType = .photoLibrary
-            self.present(image, animated: true, completion: nil)
-        }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        imgView.image = image
-        imgView.contentMode = .scaleToFill
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -90,7 +63,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(tableView)
         tableView.backgroundColor = .systemBackground
         view.addSubview(imgView)
-        view.addSubview(nameLabel)
         view.addSubview(idaLabel)
         view.addSubview(voltaLabel)
         view.addSubview(localLabel)
@@ -118,6 +90,50 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         setConstraints()
     }
+    
+    //MARK: Cover Image
+    let imgView: UIImageView = {
+        let theImageView = UIImageView()
+        theImageView.translatesAutoresizingMaskIntoConstraints = false
+        return theImageView
+    }()
+    
+    @objc func actNewImage(_ sender: AnyObject){
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let image = UIImagePickerController()
+            image.delegate = self;
+            image.sourceType = .photoLibrary
+            self.present(image, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        imgView.image = image
+        imgView.contentMode = .scaleToFill
+        saveCoverImage()
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func saveCoverImage(){
+        let imageData = imgView.image?.pngData()
+        if imgView.image == nil{
+            let savedCoverData = (try? CoreDataStack.shared.createCoverImage(data: imageData ?? Data(), trip: trip)) ?? Data()
+            let img = UIImage(data: savedCoverData)
+            imgView.image = img
+        }
+        else{
+            let savedCoverData = (try? CoreDataStack.shared.editCoverImage(data: imageData ?? Data(), trip: trip)) ?? Data()
+            let img = UIImage(data: savedCoverData)
+            imgView.image = img
+        }
+    }
+    
     
     //MARK: Alerta
     @objc func actAlert(){
@@ -202,6 +218,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(vc, animated: true)
     }
     
+    // MARK: Constraints
     func setConstraints(){
         imgView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height*0.1).isActive = true
         imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
@@ -214,17 +231,10 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         but.heightAnchor.constraint(equalToConstant: 20).isActive = true
         but.bottomAnchor.constraint(equalTo: imgView.bottomAnchor, constant: -10).isActive = true
         
-        nameLabel.text = "Nome:"
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
-        nameLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        nameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        
         localLabel.text = "Destino:"
         localLabel.translatesAutoresizingMaskIntoConstraints = false
         localLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        localLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        localLabel.topAnchor.constraint(equalTo: inputName.bottomAnchor, constant: 10).isActive = true
         localLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
         localLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
@@ -256,7 +266,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         inputName.text = trip.name
         inputName.translatesAutoresizingMaskIntoConstraints = false
-        inputName.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10).isActive = true
+        inputName.font = UIFont.boldSystemFont(ofSize: 20.0)
+        inputName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         inputName.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 20).isActive = true
         inputName.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         inputName.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -264,7 +275,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         inputDestination.translatesAutoresizingMaskIntoConstraints = false
         inputDestination.text = trip.destination
         inputDestination.leadingAnchor.constraint(equalTo: localLabel.trailingAnchor, constant: 10).isActive = true
-        inputDestination.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        inputDestination.topAnchor.constraint(equalTo: inputName.bottomAnchor, constant: 10).isActive = true
         inputDestination.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         inputDestination.heightAnchor.constraint(equalToConstant: 20).isActive = true
         

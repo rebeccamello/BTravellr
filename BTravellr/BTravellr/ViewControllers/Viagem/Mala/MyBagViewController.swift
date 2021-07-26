@@ -83,6 +83,10 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 extension MyBagViewController: NewItemViewControllerDelegate{

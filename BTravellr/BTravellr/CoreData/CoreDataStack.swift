@@ -48,7 +48,7 @@ class CoreDataStack {
         }
     }
     
-    //MARK: Viagem
+    //MARK: Trip
     
     func createTrip(name: String, destination: String, dataIda: String, dataVolta: String) throws -> Trip{
         let trip = Trip(context: mainContext)
@@ -65,7 +65,7 @@ class CoreDataStack {
         try save()
     }
     
-    //MARK: Lista da Mala
+    //MARK: Bag Items
     func createBagItem(itemName: String, trip: Trip) throws -> Bag{
         let item = Bag(context: mainContext)
         item.itemName = itemName
@@ -93,14 +93,28 @@ class CoreDataStack {
     }
     
     //MARK: Photos
-    func saveImage(data: Data, trip: Trip) throws{
+    func saveImage(data: Data, trip: Trip) throws -> Data{
         let imageInstance = Images(context: mainContext)
         imageInstance.img = data
         trip.addToTripPhotos(imageInstance)
         try save()
-        print("Image is saved")
+        return data
     }
     
+    //MARK: Cover Image
+    func createCoverImage(data: Data, trip: Trip) throws -> Data{
+        let coverImage = CoverImage(context: mainContext)
+        coverImage.coverName = data
+        trip.tripCoverImge = coverImage
+        try save()
+        return data
+    }
+    
+    func editCoverImage(data: Data, trip: Trip) throws -> Data{
+        trip.coverImage = data
+        try save()
+        return data
+    }
 }
 
 enum CoreDataStackError: Error {

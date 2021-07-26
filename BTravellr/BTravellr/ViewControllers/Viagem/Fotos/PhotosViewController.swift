@@ -11,13 +11,16 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     
     var trip: Trip?
     var photos = [Images]()
-    var pickedPhoto = UIImage()
     
     init(trip: Trip) {
         self.trip = trip
         super.init(nibName: nil, bundle: nil)
         let img = (trip.tripPhotos?.allObjects as? [Images])
         photos = img ?? []
+        imgs = photos.compactMap{ //mapeia um array em outro, excluindo todo que dao nill
+            guard let data = $0.img else{return nil}
+            return UIImage(data: data)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -25,6 +28,8 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     var imgs = [UIImage]()
+    var unsavedImgs = [UIImage]()
+    
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,6 +54,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         imgs.append(image)
+        unsavedImgs.append(image)
         collectionView?.reloadData()
         self.dismiss(animated: true, completion: nil)
     }
@@ -61,7 +67,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         title = "Fotos"
         
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewImage))
-        let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(SavePhoto))
+        let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(savePhoto))
         
         navigationItem.rightBarButtonItems = [addButton, saveButton]
         
@@ -110,15 +116,14 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CollectionViewCell else {preconditionFailure()}
         cell.img.image = imgs[indexPath.row]
-        pickedPhoto = imgs[indexPath.row]
         return cell
     }
     
-    @objc func SavePhoto(){
-        print("oi")
-        if let imageData = pickedPhoto.pngData(){ // converte a imagem em data
-            print("oi2")
-            try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
+    @objc func savePhoto(){
+        for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
+            if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data
+                let savedImgData = (try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)) ?? Data()
+            }
         }
     }
 }

@@ -4,25 +4,34 @@
         <attribute name="itemName" optional="YES" attributeType="String"/>
         <relationship name="trips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripBagItems" inverseEntity="Trip"/>
     </entity>
+    <entity name="CoverImage" representedClassName="CoverImage" syncable="YES" codeGenerationType="class">
+        <attribute name="coverName" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="trips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripCoverImge" inverseEntity="Trip"/>
+    </entity>
     <entity name="Images" representedClassName="Images" syncable="YES" codeGenerationType="class">
         <attribute name="img" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <relationship name="trips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripPhotos" inverseEntity="Trip"/>
     </entity>
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
         <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="trips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="tripNotes" inverseEntity="Trip"/>
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES" codeGenerationType="class">
+        <attribute name="coverImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="dataIda" optional="YES" attributeType="String"/>
         <attribute name="dataVolta" optional="YES" attributeType="String"/>
         <attribute name="destination" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="tripBagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag" inverseName="trips" inverseEntity="Bag"/>
-        <relationship name="tripNotes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
-        <relationship name="tripPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Images"/>
+        <relationship name="tripCoverImge" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoverImage" inverseName="trips" inverseEntity="CoverImage"/>
+        <relationship name="tripNotes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="trips" inverseEntity="Notes"/>
+        <relationship name="tripPhotos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Images" inverseName="trips" inverseEntity="Images"/>
     </entity>
     <elements>
-        <element name="Trip" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="Trip" positionX="-63" positionY="-18" width="128" height="164"/>
         <element name="Bag" positionX="-45" positionY="27" width="128" height="59"/>
-        <element name="Notes" positionX="-27" positionY="54" width="128" height="44"/>
-        <element name="Images" positionX="-9" positionY="72" width="128" height="44"/>
+        <element name="Notes" positionX="-27" positionY="54" width="128" height="59"/>
+        <element name="Images" positionX="-9" positionY="72" width="128" height="59"/>
+        <element name="CoverImage" positionX="9" positionY="90" width="128" height="59"/>
     </elements>
 </model>
