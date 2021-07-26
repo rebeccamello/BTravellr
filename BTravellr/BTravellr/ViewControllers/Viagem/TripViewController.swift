@@ -212,7 +212,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @IBAction func actNewTrip() -> Void{
-        let root = NewTripViewController()
+        let root = NewTripViewController(tripInfos: trip)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)

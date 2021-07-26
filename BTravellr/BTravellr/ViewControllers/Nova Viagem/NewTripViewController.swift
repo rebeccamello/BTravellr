@@ -41,6 +41,16 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     let tramLabel = UILabel()
     let boatLabel = UILabel()
     
+    var tripInit = Trip()
+    init(trip: Trip) {
+        self.tripInit = trip
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)

@@ -18,7 +18,7 @@ class TripCollectionViewCell: UICollectionViewCell {
     var name: UILabel = {
         let titulo = UILabel()
         titulo.textColor = .white
-        titulo.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+//        titulo.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         titulo.translatesAutoresizingMaskIntoConstraints = false
         titulo.font = titulo.font.withSize(18)
         return titulo
@@ -28,6 +28,7 @@ class TripCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         self.addSubview(img)
         self.addSubview(name)
+        self.layer.cornerRadius = 12
         
         img.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         img.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -35,7 +36,7 @@ class TripCollectionViewCell: UICollectionViewCell {
         img.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         
         name.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        name.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        name.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
         name.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     

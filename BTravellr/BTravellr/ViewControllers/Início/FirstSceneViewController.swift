@@ -80,14 +80,14 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
-        collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10).isActive = true
         collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     @objc func actNewTrip() -> Void{
-        let root = NewTripViewController()
+        let root = NewTripViewController(tripInfos: Trip())
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true)
@@ -129,7 +129,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         let vc = TripViewController(tripInfos: object)
         navigationController?.pushViewController(vc, animated: true)
     }
-
 }
 
 extension FirstSceneViewController: NewTripViewControllerDelegate {
