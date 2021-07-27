@@ -82,7 +82,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
+        layout.itemSize = CGSize(width: 100, height: 100) // tamanho das células
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -111,8 +111,8 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
     }
     
     // Quantidade de células

@@ -41,13 +41,6 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         
         view.addSubview(noTripLabel)
         
-        if frc.fetchedObjects?.count != nil {
-            noTripLabel.isHidden = true
-        }
-        else{
-            noTripLabel.isHidden = false
-        }
-        
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
         layout.scrollDirection = .vertical
@@ -71,6 +64,22 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         view.addSubview(collectionView)
         setConstraints()
     }
+    
+    func reactNumbeOftrips(){
+        if Int(frc.fetchedObjects?.count ?? 1000) != 0 {
+            print("Is hidden")
+            print(Int(frc.fetchedObjects?.count ?? 90))
+            noTripLabel.isHidden = true
+        }
+        else{
+            print("not Is hidden")
+            noTripLabel.isHidden = false
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reactNumbeOftrips()
+    }
 
     func setConstraints(){
         // textinho de quando ainda nao tem viagens
@@ -90,13 +99,14 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         let root = NewTripViewController(trip: nil)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
-        present(vc, animated: true)
+        present(vc, animated: true, completion: {[weak self] in self?.reactNumbeOftrips()})
     }
     
     //MARK: CollectionView Delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return frc.fetchedObjects?.count ?? 0
+        let numberOfCollections = frc.fetchedObjects?.count ?? 0
+        return numberOfCollections
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,6 +139,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         let vc = TripViewController(tripInfos: object)
         navigationController?.pushViewController(vc, animated: true)
     }
+
 }
 
 extension FirstSceneViewController: NewTripViewControllerDelegate {
