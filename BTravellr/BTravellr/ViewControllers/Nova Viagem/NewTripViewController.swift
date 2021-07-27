@@ -112,20 +112,24 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     func textFieldDidBeginEditing(_ textField: UITextField){
         textField.addTarget(self, action: #selector(valueChanged), for: .editingChanged)
     }
+    var nameField: String = ""
+    var destinationField: String = ""
+    var dataIdaField: String = ""
+    var dataVoltaField: String = ""
 
     @objc func valueChanged(_ textField: UITextField){
         switch textField.tag {
         case TextFieldData.name.rawValue:
-            trip?.name = textField.text ?? ""
+            nameField = textField.text ?? ""
 
         case TextFieldData.destination.rawValue:
-            trip?.destination = textField.text ?? ""
+            destinationField = textField.text ?? ""
             
         case TextFieldData.dataIda.rawValue:
-            trip?.dataIda = textField.text ?? ""
+            dataIdaField = textField.text ?? ""
             
         case TextFieldData.dataVolta.rawValue:
-            trip?.dataVolta = textField.text ?? ""
+            dataVoltaField = textField.text ?? ""
         default:
             break
         }
@@ -198,7 +202,13 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             try? CoreDataStack.shared.deleteTrip(trip: trip)
             return
         }
+        
+        trip.name = nameField
+        trip.destination = destinationField
+        trip.dataIda = dataIdaField
+        trip.dataVolta = dataVoltaField
         delegate?.didRegister()
+        
         try? CoreDataStack.shared.save()
         self.dismiss(animated: true, completion: nil)
     }
