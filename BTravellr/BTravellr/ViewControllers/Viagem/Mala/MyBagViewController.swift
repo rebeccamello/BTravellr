@@ -12,6 +12,7 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var items = [Bag]()
     var trip: Trip
+    var backbutton = UIButton()
     
     init(tripInfos: Trip) {
         self.trip = tripInfos
@@ -30,6 +31,12 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actItem))
+        backbutton.setTitle("Voltar", for: .normal)
+        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
+        backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
         title = "Minha Mala"
         
@@ -86,6 +93,11 @@ class MyBagViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @objc func actBack(){
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

@@ -10,7 +10,7 @@ import CoreData
 
 class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
 
-    let label = UILabel()
+    let noTripLabel = UILabel()
     var but: UIBarButtonItem?
     private var collectionView: UICollectionView?
     
@@ -39,13 +39,13 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         but = UIBarButtonItem(image: UIImage(systemName: "plus"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(actNewTrip))
         navigationItem.rightBarButtonItem = but!
         
-        view.addSubview(label)
+        view.addSubview(noTripLabel)
         
-        if frc.fetchedObjects?.count != 0 {
-            label.isHidden = true
+        if frc.fetchedObjects?.count != nil {
+            noTripLabel.isHidden = true
         }
         else{
-            label.isHidden = false
+            noTripLabel.isHidden = false
         }
         
         let layout = UICollectionViewFlowLayout()
@@ -74,10 +74,10 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
 
     func setConstraints(){
         // textinho de quando ainda nao tem viagens
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Ainda não há nenhuma viagem registrada"
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+        noTripLabel.translatesAutoresizingMaskIntoConstraints = false
+        noTripLabel.text = "Ainda não há nenhuma viagem registrada"
+        noTripLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        noTripLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true

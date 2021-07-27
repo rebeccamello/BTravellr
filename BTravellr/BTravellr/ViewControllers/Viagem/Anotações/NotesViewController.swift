@@ -14,6 +14,7 @@ class NotesViewController: UIViewController{
     var note: Notes?
     var saveBut: UIBarButtonItem?
     var cancellables = Set <AnyCancellable>()
+    var backbutton = UIButton()
 
     init(trip: Trip) {
         self.trip = trip
@@ -33,8 +34,20 @@ class NotesViewController: UIViewController{
         if let note = note{
             textView.text = note.text
         }
+        
         saveBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(saveNote))
         navigationItem.rightBarButtonItem = saveBut
+        
+        backbutton.setTitle("Voltar", for: .normal)
+        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
+        backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
+        
+//        backbutton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(actBack))
+//        backbutton?.title = "Voltar"
+//        navigationItem.leftBarButtonItem = backbutton
         
         setConstraints()
         
@@ -52,6 +65,11 @@ class NotesViewController: UIViewController{
         textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         textView.font = UIFont.systemFont(ofSize: 18)
+    }
+    
+    @objc func actBack(){
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func saveNote(){

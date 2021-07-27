@@ -184,13 +184,13 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     //MARK: Funcoes dos botoes
     @objc func actHome() -> Void{
         guard let trip = self.trip else{return}
-        try? CoreDataStack.shared.deleteTrip(trip: trip)
+        if trip.name == "" && trip.destination == "" && trip.dataIda == "" && trip.dataVolta == ""{
+            try? CoreDataStack.shared.deleteTrip(trip: trip)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func actSave(){
-        self.dismiss(animated: true, completion: nil)
-        
         guard let trip = self.trip else{return}
         if trip.name == "" && trip.destination == "" && trip.dataIda == "" && trip.dataVolta == ""{
             try? CoreDataStack.shared.deleteTrip(trip: trip)
@@ -198,6 +198,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         }
         delegate?.didRegister()
         try? CoreDataStack.shared.save()
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: Botões

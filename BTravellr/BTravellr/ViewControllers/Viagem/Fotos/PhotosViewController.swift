@@ -11,6 +11,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     
     var trip: Trip?
     var photos = [Images]()
+    var backbutton = UIButton()
     
     init(trip: Trip) {
         self.trip = trip
@@ -70,6 +71,14 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(savePhoto))
         
         navigationItem.rightBarButtonItems = [addButton, saveButton]
+        backbutton.setTitle("Voltar", for: .normal)
+        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
+        backbutton.setTitle("Voltar", for: .selected)
+        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .selected)
+        backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
         
         let layout = UICollectionViewFlowLayout()
@@ -124,5 +133,10 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
                 _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
             }
         }
+    }
+    
+    @objc func actBack(){
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
 }

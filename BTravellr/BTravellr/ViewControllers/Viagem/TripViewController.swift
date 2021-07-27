@@ -218,7 +218,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let root = NewTripViewController(trip: trip)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
-        present(vc, animated: true)
+        present(vc, animated: true, completion: setInputs)
     }
     
     // MARK: Constraints
