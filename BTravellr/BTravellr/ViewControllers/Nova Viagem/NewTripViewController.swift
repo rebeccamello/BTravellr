@@ -112,6 +112,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     func textFieldDidBeginEditing(_ textField: UITextField){
         textField.addTarget(self, action: #selector(valueChanged), for: .editingChanged)
     }
+    
     var nameField: String = ""
     var destinationField: String = ""
     var dataIdaField: String = ""
@@ -190,7 +191,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     //MARK: Funcoes dos botoes
     @objc func actHome() -> Void{
         guard let trip = self.trip else{return}
-        if trip.name == "" && trip.destination == "" && trip.dataIda == "" && trip.dataVolta == ""{
+        if nameField == "" && destinationField == "" && dataIdaField == "" && dataVoltaField == ""{
             try? CoreDataStack.shared.deleteTrip(trip: trip)
         }
         self.dismiss(animated: true, completion: nil)
@@ -198,7 +199,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     
     @objc func actSave(){
         guard let trip = self.trip else{return}
-        if trip.name == "" && trip.destination == "" && trip.dataIda == "" && trip.dataVolta == ""{
+        if nameField == "" && destinationField == "" && dataIdaField == "" && dataVoltaField == ""{
             try? CoreDataStack.shared.deleteTrip(trip: trip)
             return
         }
@@ -207,8 +208,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         trip.destination = destinationField
         trip.dataIda = dataIdaField
         trip.dataVolta = dataVoltaField
-        delegate?.didRegister()
         
+        delegate?.didRegister()
         try? CoreDataStack.shared.save()
         self.dismiss(animated: true, completion: nil)
     }
