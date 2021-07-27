@@ -28,7 +28,6 @@ class NotesViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-//        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Anotações"
         view.addSubview(textView)
         if let note = note{
@@ -52,6 +51,7 @@ class NotesViewController: UIViewController{
         textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        textView.font = UIFont.systemFont(ofSize: 18)
     }
     
     @objc func saveNote(){

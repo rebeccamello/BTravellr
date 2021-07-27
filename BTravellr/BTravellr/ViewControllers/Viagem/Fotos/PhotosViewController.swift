@@ -104,7 +104,6 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
     }
     
     // Quantidade de células
@@ -122,7 +121,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     @objc func savePhoto(){
         for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
             if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data
-                let savedImgData = (try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)) ?? Data()
+                _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
             }
         }
     }

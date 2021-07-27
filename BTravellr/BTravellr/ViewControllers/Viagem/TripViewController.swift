@@ -230,8 +230,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         but.translatesAutoresizingMaskIntoConstraints = false
         but.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        but.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        but.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        but.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        but.heightAnchor.constraint(equalToConstant: 30).isActive = true
         but.bottomAnchor.constraint(equalTo: imgView.bottomAnchor, constant: -10).isActive = true
         
         localLabel.text = "Destino:"
