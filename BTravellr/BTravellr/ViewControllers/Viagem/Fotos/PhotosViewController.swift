@@ -28,6 +28,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Image View
     var imgs = [UIImage]()
     var unsavedImgs = [UIImage]()
     
@@ -48,6 +49,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         }
     }
     
+    //MARK: Image Picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -60,6 +62,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         self.dismiss(animated: true, completion: nil)
     }
     
+    //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -73,8 +76,6 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         navigationItem.rightBarButtonItems = [addButton, saveButton]
         backbutton.setTitle("Voltar", for: .normal)
         backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
-        backbutton.setTitle("Voltar", for: .selected)
-        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .selected)
         backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
 
@@ -102,6 +103,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         setConstraints()
     }
     
+    //MARK: Constraints
     func setConstraints(){
         imgView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.height*0.2).isActive = true
         imgView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 13).isActive = true
@@ -115,6 +117,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
     }
     
+    //MARK: CollectionView
     // Quantidade de células
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imgs.count
@@ -127,6 +130,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         return cell
     }
     
+    //MARK: Ações dos botões
     @objc func savePhoto(){
         for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
             if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data

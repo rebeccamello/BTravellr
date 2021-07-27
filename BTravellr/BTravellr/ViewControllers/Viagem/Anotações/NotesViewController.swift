@@ -26,6 +26,7 @@ class NotesViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -57,6 +58,7 @@ class NotesViewController: UIViewController{
             .store(in: &cancellables)
     }
     
+    //MARK: Constraints
     func setConstraints(){
         textView.frame = CGRect(x: 0, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
         textView.backgroundColor = .systemBackground
@@ -67,6 +69,7 @@ class NotesViewController: UIViewController{
         textView.font = UIFont.systemFont(ofSize: 18)
     }
     
+    //MARK: Ações botões 
     @objc func actBack(){
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)

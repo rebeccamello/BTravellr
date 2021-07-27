@@ -56,7 +56,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    //MARK: TableView
     let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
             table.translatesAutoresizingMaskIntoConstraints = false
@@ -101,6 +101,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         return UITableViewCell()
     }
     
+    //MARK: TextView
     enum TextFieldData: Int {
         case name = 0
         case destination = 1
@@ -130,6 +131,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         }
     }
     
+    //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

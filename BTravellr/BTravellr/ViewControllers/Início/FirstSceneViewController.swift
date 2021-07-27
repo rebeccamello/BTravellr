@@ -29,7 +29,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         return frc
     }()
 
-    
+    //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -65,22 +65,21 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         setConstraints()
     }
     
-    func reactNumbeOftrips(){
-        if Int(frc.fetchedObjects?.count ?? 1000) != 0 {
-            print("Is hidden")
-            print(Int(frc.fetchedObjects?.count ?? 90))
-            noTripLabel.isHidden = true
-        }
-        else{
-            print("not Is hidden")
-            noTripLabel.isHidden = false
-        }
-    }
-    
+    //MARK: Label de nenhuma viagem
     override func viewWillAppear(_ animated: Bool) {
         reactNumbeOftrips()
     }
+    
+    func reactNumbeOftrips(){
+        if Int(frc.fetchedObjects?.count ?? 1000) != 0 {
+            noTripLabel.isHidden = true
+        }
+        else{
+            noTripLabel.isHidden = false
+        }
+    }
 
+    //MARK: Constraints
     func setConstraints(){
         // textinho de quando ainda nao tem viagens
         noTripLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -95,6 +94,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
+    //MARK: Função de chamar a controller de Nova Viagem
     @objc func actNewTrip() -> Void{
         let root = NewTripViewController(trip: nil)
         let vc = UINavigationController(rootViewController: root)

@@ -27,6 +27,7 @@ class NewItemViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -43,17 +44,19 @@ class NewItemViewController: UIViewController {
         setConstraints()
     }
     
-    @IBAction func cancel() -> Void{
+    //MARK: Ações dos botões
+    @objc func cancel() -> Void{
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func done() -> Void{
+    @objc func done() -> Void{
         name = textField.text!
         self.dismiss(animated: true, completion: nil)
         guard let bag = try? CoreDataStack.shared.createBagItem(itemName: name, trip: trip) else{ preconditionFailure()}
         delegate?.updateItem(bag: bag)
     }
     
+    //MARK: Constraints
     func setConstraints(){
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true

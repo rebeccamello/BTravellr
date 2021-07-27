@@ -58,7 +58,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actNewTrip))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actEdit))
 
         configure()
         
@@ -213,8 +213,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    
-    @objc func actNewTrip() -> Void{
+    //MARK: Editar 
+    @objc func actEdit() -> Void{
         let root = NewTripViewController(trip: trip)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
