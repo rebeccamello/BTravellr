@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 struct Section{
     let title: String
@@ -77,7 +78,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
-        but.addTarget(self, action: #selector(actNewImage), for: .touchDown)
+        but.addTarget(self, action: #selector(callPermition), for: .touchDown)
         deleteTrip.setTitle("Excluir viagem", for: .normal)
         deleteTrip.setTitleColor(.systemRed, for: .normal)
         deleteTrip.addTarget(self, action: #selector(actAlert), for: .touchDown)
@@ -92,6 +93,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         setConstraints()
         setInputs()
+//        checkPermission()
     }
     
     //MARK: Cover Image
@@ -101,12 +103,47 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return theImageView
     }()
     
-    @objc func actNewImage(_ sender: AnyObject){
+    @objc func callPermition(){
+        checkPermission()
+    }
+    
+    @objc func checkPermission(){
+        let photoAutorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAutorizationStatus{
+        case.authorized:
+            self.actNewImage()
+            print("Acesso permitido pelo usuário")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                DispatchQueue.main.async {
+                    print("Status is \(newStatus)")
+                    if newStatus == PHAuthorizationStatus.authorized{
+                        self.actNewImage()
+                        print("Acesso autorizado")
+                    }
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User did not have access to photo album")
+        case .denied:
+            print("User has denied permission")
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    func actNewImage(){
+        let image = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            let image = UIImagePickerController()
             image.delegate = self;
             image.sourceType = .photoLibrary
             self.present(image, animated: true, completion: nil)
+            
         }
     }
     
@@ -120,7 +157,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         imgView.contentMode = .scaleToFill
         saveCoverImage()
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     func saveCoverImage(){

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class PhotosViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -40,7 +41,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     
     private var collectionView: UICollectionView?
     
-    @objc func actNewImage(_ sender: AnyObject){
+    func actNewImage(){
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
             let image = UIImagePickerController()
             image.delegate = self;
@@ -50,6 +51,41 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     //MARK: Image Picker
+    
+    @objc func callPermition(){
+        checkPermission()
+    }
+    
+    @objc func checkPermission(){
+        let photoAutorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAutorizationStatus{
+        case.authorized:
+            self.actNewImage()
+            print("Acesso permitido pelo usuário")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                DispatchQueue.main.async {
+                    print("Status is \(newStatus)")
+                    if newStatus == PHAuthorizationStatus.authorized{
+                        self.actNewImage()
+                        print("Acesso autorizado")
+                    }
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User did not have access to photo album")
+        case .denied:
+            print("User has denied permission")
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -70,7 +106,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         title = "Fotos"
         
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(actNewImage))
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(callPermition))
         let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(savePhoto))
         
         navigationItem.rightBarButtonItems = [addButton, saveButton]
@@ -129,6 +165,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         cell.img.image = imgs[indexPath.row]
         return cell
     }
+    
     
     //MARK: Ações dos botões
     @objc func savePhoto(){
