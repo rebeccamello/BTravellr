@@ -29,6 +29,47 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: DidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+        title = "Fotos"
+        
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(callPermition))
+        let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(savePhoto))
+        
+        navigationItem.rightBarButtonItems = [addButton, saveButton]
+        backbutton.setTitle("Voltar", for: .normal)
+        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
+        backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
+        
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 100, height: 100) // tamanho das células
+        layout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        guard let collectionView = collectionView else {
+            return
+        }
+        
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+        
+        
+        view.addSubview(collectionView)
+        
+        view.addSubview(imgView)
+        setConstraints()
+    }
+    
     //MARK: Image View
     var imgs = [UIImage]()
     var unsavedImgs = [UIImage]()
@@ -96,47 +137,6 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         unsavedImgs.append(image)
         collectionView?.reloadData()
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    //MARK: DidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        title = "Fotos"
-        
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(callPermition))
-        let saveButton = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(savePhoto))
-        
-        navigationItem.rightBarButtonItems = [addButton, saveButton]
-        backbutton.setTitle("Voltar", for: .normal)
-        backbutton.setTitleColor(#colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1), for: .normal)
-        backbutton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        backbutton.addTarget(self, action: #selector(actBack), for: .touchUpInside)
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
-        
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100) // tamanho das células
-        layout.scrollDirection = .vertical
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        guard let collectionView = collectionView else {
-            return
-        }
-        
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .clear
-        
-        
-        view.addSubview(collectionView)
-        
-        view.addSubview(imgView)
-        setConstraints()
     }
     
     //MARK: Constraints

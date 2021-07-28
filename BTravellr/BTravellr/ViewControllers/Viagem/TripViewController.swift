@@ -30,7 +30,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
     var models = [Section]()
-    let deleteTrip = UIButton()
     var inputName = UILabel()
     var inputDestination = UILabel()
     var inputDataIda = UILabel()
@@ -59,7 +58,9 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actEdit))
+        let editBut = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actEdit))
+        let trashBut = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(actAlert))
+        navigationItem.rightBarButtonItems = [editBut, trashBut]
 
         configure()
         
@@ -70,7 +71,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(voltaLabel)
         view.addSubview(localLabel)
         view.addSubview(but)
-        view.addSubview(deleteTrip)
         view.addSubview(inputName)
         view.addSubview(inputDestination)
         view.addSubview(inputDataIda)
@@ -79,10 +79,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
         but.addTarget(self, action: #selector(callPermition), for: .touchDown)
-        deleteTrip.setTitle("Excluir viagem", for: .normal)
-        deleteTrip.setTitleColor(.systemRed, for: .normal)
-        deleteTrip.addTarget(self, action: #selector(actAlert), for: .touchDown)
-        
         
         imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         imgView.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
@@ -93,7 +89,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         setConstraints()
         setInputs()
-//        checkPermission()
     }
     
     //MARK: Cover Image
@@ -297,12 +292,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        deleteTrip.translatesAutoresizingMaskIntoConstraints = false
-        deleteTrip.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        deleteTrip.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         //inputs
         inputName.translatesAutoresizingMaskIntoConstraints = false
