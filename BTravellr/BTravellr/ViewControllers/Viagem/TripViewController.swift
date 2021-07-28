@@ -214,10 +214,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     //MARK: Editar 
-    @objc func actEdit() -> Void{
-        let root = NewTripViewController(trip: trip)
+    @objc func actEdit() -> Void {
+        let root = NewTripViewController(trip: trip, type: .editView)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
+        root.delegate2 = self
         present(vc, animated: true, completion: setInputs)
     }
     

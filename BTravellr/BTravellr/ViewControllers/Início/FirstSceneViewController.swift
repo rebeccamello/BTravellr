@@ -96,7 +96,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     
     //MARK: Função de chamar a controller de Nova Viagem
     @objc func actNewTrip() -> Void{
-        let root = NewTripViewController(trip: nil)
+        let root = NewTripViewController(type: .firstView)
         let vc = UINavigationController(rootViewController: root)
         vc.modalPresentationStyle = .automatic
         present(vc, animated: true, completion: {[weak self] in self?.reactNumbeOftrips()})
