@@ -14,13 +14,20 @@ struct TripStruct{
     var dataVolta: String
 }
 
+enum ViewControllerType{
+    case firstView
+    case editView
+}
+
 class NewTripViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate{
     
     var trip: Trip?
     weak var delegate: NewTripViewControllerDelegate?
+    weak var delegate2: TripViewControllerDelegate?
     let textos = ["Nome", "Destino", "Ida", "Volta"]
     var barBut: UIBarButtonItem?
     var barBut2: UIBarButtonItem?
+    var type: ViewControllerType
     
     let transpLabel = UILabel()
     
@@ -41,8 +48,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     let tramLabel = UILabel()
     let boatLabel = UILabel()
     
-    init(trip: Trip?) {
+    init(trip: Trip? = nil, type: ViewControllerType) {
         self.trip = trip
+        self.type = type
         if let tripInfo = trip {
             self.trip = tripInfo
         } else{
@@ -55,6 +63,11 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var nameField: String = ""
+    var destinationField: String = ""
+    var dataIdaField: String = ""
+    var dataVoltaField: String = ""
     
     //MARK: TableView
     let tableView: UITableView = {
@@ -97,7 +110,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
 
             return cell
         }
-            
         return UITableViewCell()
     }
     
@@ -113,11 +125,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         textField.addTarget(self, action: #selector(valueChanged), for: .editingChanged)
     }
     
-    var nameField: String = ""
-    var destinationField: String = ""
-    var dataIdaField: String = ""
-    var dataVoltaField: String = ""
-
     @objc func valueChanged(_ textField: UITextField){
         switch textField.tag {
         case TextFieldData.name.rawValue:
@@ -135,7 +142,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             break
         }
     }
-    
+
     //MARK: DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +150,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         title = "Nova viagem"
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
-        barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actSave))
+        switch type {
+        case .firstView:
+            barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actSave))
+        case .editView:
+            barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actEdit))
+        }
         barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
         
         navigationItem.rightBarButtonItem = barBut
@@ -210,6 +222,27 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         trip.dataVolta = dataVoltaField
         
         delegate?.didRegister()
+        try? CoreDataStack.shared.save()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func actEdit(){
+        if !nameField.isEmpty && nameField != "" {
+            trip?.name = nameField
+        }
+        
+        if !destinationField.isEmpty && destinationField != "" {
+            trip?.destination = destinationField
+        }
+        
+        if !dataIdaField.isEmpty && dataIdaField != "" {
+            trip?.dataIda = dataIdaField
+        }
+        
+        if !dataVoltaField.isEmpty && dataVoltaField != "" {
+            trip?.dataVolta = dataVoltaField
+        }
+        delegate2?.reloadData()
         try? CoreDataStack.shared.save()
         self.dismiss(animated: true, completion: nil)
     }
