@@ -171,7 +171,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     //MARK: Alerta
     @objc func actAlert(){
-        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se exclui-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se excluí-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Sim", style: .default) { (action) in
             self.dismiss(animated: true, completion: nil)
             _ = try? CoreDataStack.shared.deleteTrip(trip: self.trip)

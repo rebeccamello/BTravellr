@@ -153,10 +153,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         switch type {
         case .firstView:
             barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actSave))
+            barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(cancelHome))
         case .editView:
             barBut = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(actEdit))
+            barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(cancelTrip))
         }
-        barBut2 = UIBarButtonItem(title: "Cancelar", style: .plain, target: self, action: #selector(actHome))
+        
         
         navigationItem.rightBarButtonItem = barBut
         navigationItem.leftBarButtonItem = barBut2!
@@ -201,11 +203,17 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     }
     
     //MARK: Funcoes dos botoes
-    @objc func actHome() -> Void{
+    @objc func cancelTrip() -> Void{
         guard let trip = self.trip else{return}
-        if nameField == "" && destinationField == "" && dataIdaField == "" && dataVoltaField == ""{
+        if !nameField.isEmpty && nameField != "" && !destinationField.isEmpty && destinationField != "" && !dataIdaField.isEmpty && dataIdaField != "" && !dataVoltaField.isEmpty && dataVoltaField != "" {
             try? CoreDataStack.shared.deleteTrip(trip: trip)
         }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func cancelHome() -> Void{
+        guard let trip = self.trip else{return}
+        try? CoreDataStack.shared.deleteTrip(trip: trip)
         self.dismiss(animated: true, completion: nil)
     }
     
