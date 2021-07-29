@@ -32,6 +32,7 @@ class NotesViewController: UIViewController{
         view.backgroundColor = .systemBackground
         title = "Anotações"
         view.addSubview(textView)
+        
         if let note = note{
             textView.text = note.text
         }
@@ -46,10 +47,6 @@ class NotesViewController: UIViewController{
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
-//        backbutton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(actBack))
-//        backbutton?.title = "Voltar"
-//        navigationItem.leftBarButtonItem = backbutton
-        
         setConstraints()
         
         //Salvar quando para de escrever
@@ -60,12 +57,8 @@ class NotesViewController: UIViewController{
     
     //MARK: Constraints
     func setConstraints(){
-        textView.frame = CGRect(x: 0, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
+        textView.frame = CGRect(x: 20, y: 0, width: view.bounds.width*0.9, height: view.bounds.height)
         textView.backgroundColor = .systemBackground
-        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         textView.font = UIFont.systemFont(ofSize: 18)
     }
     
