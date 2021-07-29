@@ -51,7 +51,7 @@ class NotesViewController: UIViewController{
         
         //Salvar quando para de escrever
         NotificationCenter.default.publisher(for: UITextView.textDidEndEditingNotification)
-            .sink(receiveValue: {[weak self] _ in self?.saveNote()})
+            .sink(receiveValue: {[weak self] _ in self?.actBackbutton()})
             .store(in: &cancellables)
     }
     
@@ -69,6 +69,23 @@ class NotesViewController: UIViewController{
     }
     
     @objc func saveNote(){
+        if note == nil{
+            try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
+        }
+        else{
+            try? CoreDataStack.shared.editNote(note: note!, text: textView.text!)
+            alert()
+        }
+    }
+    
+    func alert(){
+        let alert = UIAlertController(title: "Anotação salva", message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(saveAction)
+        present(alert, animated: true)
+    }
+    
+    func actBackbutton(){
         if note == nil{
             try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
         }

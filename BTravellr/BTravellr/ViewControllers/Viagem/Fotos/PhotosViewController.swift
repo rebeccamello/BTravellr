@@ -19,7 +19,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         super.init(nibName: nil, bundle: nil)
         let img = (trip.tripPhotos?.allObjects as? [Images])
         photos = img ?? []
-        imgs = photos.compactMap{ //mapeia um array em outro, excluindo todo que dao nill
+        imgs = photos.compactMap{ //mapeia um array em outro, excluindo todos que dao nill
             guard let data = $0.img else{return nil}
             return UIImage(data: data)
         }
@@ -166,14 +166,27 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = PickedPhotoViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
     //MARK: Ações dos botões
     @objc func savePhoto(){
         for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
             if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data
                 _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
+                alert()
             }
         }
+    }
+    
+    func alert(){
+        let alert = UIAlertController(title: "Imagens salvas", message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(saveAction)
+        present(alert, animated: true)
     }
     
     @objc func actBack(){

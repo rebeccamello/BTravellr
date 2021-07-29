@@ -101,6 +101,11 @@ class CoreDataStack {
         return data
     }
     
+    func deleteImage(image: Images) throws {
+        mainContext.delete(image)
+        try save()
+    }
+    
     //MARK: Cover Image
     func createCoverImage(data: Data, trip: Trip) throws -> Data{
         let coverImage = CoverImage(context: mainContext)
