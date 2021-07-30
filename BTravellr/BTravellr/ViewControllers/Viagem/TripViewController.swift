@@ -82,6 +82,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         imgView.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+
         
         tableView.delegate = self
         tableView.dataSource = self
