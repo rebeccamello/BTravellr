@@ -99,8 +99,8 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     }
     
     override func viewDidLayoutSubviews() {
-            collectionView.scrollToItem(at: imageIndex, at: .left, animated: false)
-//            deleteIndex = Int(imageIndex)
+        collectionView.scrollToItem(at: imageIndex, at: .left, animated: false)
+        deleteIndex = Int(imageIndex.row)
     }
     
     //MARK: Função de deletar

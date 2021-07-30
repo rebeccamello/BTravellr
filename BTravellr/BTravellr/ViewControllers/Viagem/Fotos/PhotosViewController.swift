@@ -207,5 +207,6 @@ extension PhotosViewController: PickedPhotoDelegate {
     func didRegister(index: Int) {
         collectionView?.reloadData()
         imgs.remove(at: index)
+        unsavedImgs = [UIImage]()
     }
 }
