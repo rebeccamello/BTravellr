@@ -96,6 +96,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
+        theImageView.contentMode = .scaleAspectFill
+        theImageView.clipsToBounds = true
         return theImageView
     }()
     
@@ -150,7 +152,9 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         imgView.image = image
-        imgView.contentMode = .scaleToFill
+//        imgView.contentMode = .scaleToFill
+        imgView.contentMode = .scaleAspectFill
+        imgView.clipsToBounds = true
         saveCoverImage()
         self.dismiss(animated: true, completion: nil)
     }

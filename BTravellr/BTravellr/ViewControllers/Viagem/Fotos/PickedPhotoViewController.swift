@@ -13,7 +13,7 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
-        theImageView.image = UIImage(named: "Aviao1")
+        theImageView.image = UIImage(named: "collectionBg")
         theImageView.contentMode = .scaleAspectFit
         return theImageView
     }()
