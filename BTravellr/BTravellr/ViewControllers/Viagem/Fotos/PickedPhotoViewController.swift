@@ -12,14 +12,26 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     var collectionView: UICollectionView!
     var trip: Trip?
     var imageIndex = IndexPath()
+    var deleteIndex = 0
     var imageArray = [UIImage]()
-//    let imgView: UIImageView = {
-//        let theImageView = UIImageView()
-//        theImageView.translatesAutoresizingMaskIntoConstraints = false
-//        theImageView.image = UIImage(named: "collectionBg")
-//        theImageView.contentMode = .scaleAspectFit
-//        return theImageView
-//    }()
+    var imageDataArray = [Images]()
+    
+    weak var photosDelegate: PickedPhotoDelegate?
+
+    init(trip: Trip) {
+        self.trip = trip
+        super.init(nibName: nil, bundle: nil)
+        let img = (trip.tripPhotos?.allObjects as? [Images])
+        imageDataArray = img ?? []
+        imageArray = imageDataArray.compactMap{ //mapeia um array em outro, excluindo todos que dao nill
+            guard let data = $0.img else{return nil}
+            return UIImage(data: data)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: DidLoad
     override func viewDidLoad() {
@@ -59,6 +71,8 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FullImageCell
         cell.imgView.image = imageArray[indexPath.row]
+        deleteIndex = indexPath.row
+        print(deleteIndex)
         return cell
     }
     
@@ -86,12 +100,16 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     
     override func viewDidLayoutSubviews() {
             collectionView.scrollToItem(at: imageIndex, at: .left, animated: false)
+//            deleteIndex = Int(imageIndex)
     }
     
     //MARK: Função de deletar
     @objc func actDelete(){
         let alert = UIAlertController(title: "Tem certeza que deseja apagar essa foto?", message: "Será excluída do álbum de fotos da sua viagem", preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "Excluir", style: .destructive) { (action) in
+        let deleteAction = UIAlertAction(title: "Excluir", style: .destructive) { [self] (action) in
+            let photo = imageDataArray[self.deleteIndex]
+            try! CoreDataStack.shared.deleteImage(image: photo)
+            photosDelegate?.didRegister(index: deleteIndex)
             self.dismiss(animated: true, completion: nil)
             self.navigationController?.popViewController(animated: true)
         }
@@ -103,11 +121,6 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     
     //MARK: Constraints
     func setConstraints(){
-//        imgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        imgView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.95).isActive = true
-//        imgView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        imgView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

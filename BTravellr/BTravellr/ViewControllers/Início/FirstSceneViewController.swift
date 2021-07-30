@@ -109,8 +109,8 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         noTripLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
         
         plane.bottomAnchor.constraint(equalTo: noTripLabel.topAnchor, constant: -20).isActive = true
-        plane.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        plane.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        plane.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -view.bounds.width*0.3).isActive = true
+        plane.widthAnchor.constraint(equalTo: view.widthAnchor, constant: view.bounds.width*0.1).isActive = true
 //        plane.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         plane.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -view.bounds.height*0.7).isActive = true
         

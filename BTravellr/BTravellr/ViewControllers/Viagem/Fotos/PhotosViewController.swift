@@ -10,7 +10,7 @@ import Photos
 
 class PhotosViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var trip: Trip?
+    var trip: Trip
     var photos = [Images]()
     var backbutton = UIButton()
     var imgs = [UIImage]()
@@ -166,10 +166,16 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = PickedPhotoViewController()
+        //primeiro ele salva pra depois acessar, se nao pode tentar acessar um objeto que nao existe ainda no CoreData
+        for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
+            if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data
+                _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip)
+            }
+        }
+        let vc = PickedPhotoViewController(trip: trip)
+        vc.photosDelegate = self
         vc.imageArray = self.imgs
         vc.imageIndex = indexPath
-        print(indexPath)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -178,7 +184,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     @objc func savePhoto(){
         for i in 0..<unsavedImgs.count{ // passa pelo vetor das imagens
             if let imageData = unsavedImgs[i].pngData(){ // converte a imagem em data
-                _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip!)
+                _ = try? CoreDataStack.shared.saveImage(data: imageData, trip: trip)
                 alert()
             }
         }
@@ -194,5 +200,12 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     @objc func actBack(){
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension PhotosViewController: PickedPhotoDelegate {
+    func didRegister(index: Int) {
+        collectionView?.reloadData()
+        imgs.remove(at: index)
     }
 }
