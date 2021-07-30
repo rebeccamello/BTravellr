@@ -13,6 +13,8 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     var trip: Trip?
     var photos = [Images]()
     var backbutton = UIButton()
+    var imgs = [UIImage]()
+    var unsavedImgs = [UIImage]()
     
     init(trip: Trip) {
         self.trip = trip
@@ -71,9 +73,6 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
     //MARK: Image View
-    var imgs = [UIImage]()
-    var unsavedImgs = [UIImage]()
-    
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,6 +167,9 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = PickedPhotoViewController()
+        vc.imageArray = self.imgs
+        vc.imageIndex = indexPath
+        print(indexPath)
         navigationController?.pushViewController(vc, animated: true)
     }
     
