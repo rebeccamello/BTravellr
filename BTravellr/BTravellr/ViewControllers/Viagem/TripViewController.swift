@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 struct Section{
     let title: String
@@ -29,7 +30,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let navBar = UINavigationBar()
     let navItem = UINavigationItem(title: "Anotações")
     var models = [Section]()
-    let deleteTrip = UIButton()
     var inputName = UILabel()
     var inputDestination = UILabel()
     var inputDataIda = UILabel()
@@ -58,7 +58,9 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actEdit))
+        let editBut = UIBarButtonItem(title: "Editar", style: .plain, target: self, action: #selector(actEdit))
+        let trashBut = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(actAlert))
+        navigationItem.rightBarButtonItems = [editBut, trashBut]
 
         configure()
         
@@ -69,7 +71,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(voltaLabel)
         view.addSubview(localLabel)
         view.addSubview(but)
-        view.addSubview(deleteTrip)
         view.addSubview(inputName)
         view.addSubview(inputDestination)
         view.addSubview(inputDataIda)
@@ -77,14 +78,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
-        but.addTarget(self, action: #selector(actNewImage), for: .touchDown)
-        deleteTrip.setTitle("Excluir viagem", for: .normal)
-        deleteTrip.setTitleColor(.systemRed, for: .normal)
-        deleteTrip.addTarget(self, action: #selector(actAlert), for: .touchDown)
-        
+        but.addTarget(self, action: #selector(callPermition), for: .touchDown)
         
         imgView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         imgView.backgroundColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
+
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -98,15 +96,52 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let imgView: UIImageView = {
         let theImageView = UIImageView()
         theImageView.translatesAutoresizingMaskIntoConstraints = false
+        theImageView.contentMode = .scaleAspectFill
+        theImageView.clipsToBounds = true
         return theImageView
     }()
     
-    @objc func actNewImage(_ sender: AnyObject){
+    @objc func callPermition(){
+        checkPermission()
+    }
+    
+    @objc func checkPermission(){
+        let photoAutorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAutorizationStatus{
+        case.authorized:
+            self.actNewImage()
+            print("Acesso permitido pelo usuário")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                DispatchQueue.main.async {
+                    print("Status is \(newStatus)")
+                    if newStatus == PHAuthorizationStatus.authorized{
+                        self.actNewImage()
+                        print("Acesso autorizado")
+                    }
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            print("User did not have access to photo album")
+        case .denied:
+            print("User has denied permission")
+            break
+        case .limited:
+            break
+        @unknown default:
+            break
+        }
+    }
+    
+    func actNewImage(){
+        let image = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            let image = UIImagePickerController()
             image.delegate = self;
             image.sourceType = .photoLibrary
             self.present(image, animated: true, completion: nil)
+            
         }
     }
     
@@ -117,10 +152,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         imgView.image = image
-        imgView.contentMode = .scaleToFill
+//        imgView.contentMode = .scaleToFill
+        imgView.contentMode = .scaleAspectFill
+        imgView.clipsToBounds = true
         saveCoverImage()
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     func saveCoverImage(){
@@ -140,7 +176,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     //MARK: Alerta
     @objc func actAlert(){
-        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se exclui-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Tem certeza que deseja apagar essa viagem?", message: "Se excluí-la, você perderá todas as informações contidas nela", preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Sim", style: .default) { (action) in
             self.dismiss(animated: true, completion: nil)
             _ = try? CoreDataStack.shared.deleteTrip(trip: self.trip)
@@ -261,12 +297,6 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
-        deleteTrip.translatesAutoresizingMaskIntoConstraints = false
-        deleteTrip.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        deleteTrip.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        deleteTrip.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        deleteTrip.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         //inputs
         inputName.translatesAutoresizingMaskIntoConstraints = false

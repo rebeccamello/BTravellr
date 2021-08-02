@@ -16,6 +16,21 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     
     private let coreData = CoreDataStack.shared
     var imgFundo: UIImage = UIImage(named: "collectionBg")!
+    let plane: UIImageView = {
+        let theImageView = UIImageView()
+        theImageView.translatesAutoresizingMaskIntoConstraints = false
+        theImageView.image = UIImage(named: "HomePlane")
+//        theImageView.contentMode = .scaleAspectFit
+        return theImageView
+    }()
+    
+    let bags: UIImageView = {
+        let theImageView = UIImageView()
+        theImageView.translatesAutoresizingMaskIntoConstraints = false
+        theImageView.image = UIImage(named: "bags")
+        theImageView.contentMode = .scaleAspectFit
+        return theImageView
+    }()
     
     private lazy var frc: NSFetchedResultsController<Trip> = {
         let fetchRequest: NSFetchRequest<Trip> = Trip.fetchRequest()
@@ -40,6 +55,8 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         navigationItem.rightBarButtonItem = but!
         
         view.addSubview(noTripLabel)
+        view.addSubview(plane)
+        view.addSubview(bags)
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 300, height: 150) // tamanho das células
@@ -73,9 +90,13 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     func reactNumbeOftrips(){
         if Int(frc.fetchedObjects?.count ?? 1000) != 0 {
             noTripLabel.isHidden = true
+            plane.isHidden = true
+            bags.isHidden = true
         }
         else{
             noTripLabel.isHidden = false
+            plane.isHidden = false
+            bags.isHidden = false
         }
     }
 
@@ -85,7 +106,18 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
         noTripLabel.translatesAutoresizingMaskIntoConstraints = false
         noTripLabel.text = "Ainda não há nenhuma viagem registrada"
         noTripLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        noTripLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+        noTripLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
+        
+        plane.bottomAnchor.constraint(equalTo: noTripLabel.topAnchor, constant: -20).isActive = true
+        plane.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -view.bounds.width*0.3).isActive = true
+        plane.widthAnchor.constraint(equalTo: view.widthAnchor, constant: view.bounds.width*0.1).isActive = true
+//        plane.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        plane.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -view.bounds.height*0.7).isActive = true
+        
+        bags.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        bags.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        bags.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -view.bounds.height*0.85).isActive = true
+        bags.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -view.bounds.width*0.7).isActive = true
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true

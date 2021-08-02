@@ -32,6 +32,7 @@ class NotesViewController: UIViewController{
         view.backgroundColor = .systemBackground
         title = "Anotações"
         view.addSubview(textView)
+        
         if let note = note{
             textView.text = note.text
         }
@@ -46,26 +47,18 @@ class NotesViewController: UIViewController{
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
         
-//        backbutton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(actBack))
-//        backbutton?.title = "Voltar"
-//        navigationItem.leftBarButtonItem = backbutton
-        
         setConstraints()
         
         //Salvar quando para de escrever
         NotificationCenter.default.publisher(for: UITextView.textDidEndEditingNotification)
-            .sink(receiveValue: {[weak self] _ in self?.saveNote()})
+            .sink(receiveValue: {[weak self] _ in self?.actBackbutton()})
             .store(in: &cancellables)
     }
     
     //MARK: Constraints
     func setConstraints(){
-        textView.frame = CGRect(x: 0, y: 0, width: Int(view.bounds.width), height: Int(view.bounds.height))
+        textView.frame = CGRect(x: 20, y: 0, width: view.bounds.width*0.9, height: view.bounds.height)
         textView.backgroundColor = .systemBackground
-        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        textView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         textView.font = UIFont.systemFont(ofSize: 18)
     }
     
@@ -76,6 +69,23 @@ class NotesViewController: UIViewController{
     }
     
     @objc func saveNote(){
+        if note == nil{
+            try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
+        }
+        else{
+            try? CoreDataStack.shared.editNote(note: note!, text: textView.text!)
+            alert()
+        }
+    }
+    
+    func alert(){
+        let alert = UIAlertController(title: "Anotação salva", message: "", preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(saveAction)
+        present(alert, animated: true)
+    }
+    
+    func actBackbutton(){
         if note == nil{
             try? CoreDataStack.shared.createNote(textInput: textView.text!, trip: trip!)
         }
