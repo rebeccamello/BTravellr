@@ -72,9 +72,7 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FullImageCell
         cell.imgView.image = imageArray[indexPath.row]
-        print("antes: ", deleteIndex)
         deleteIndex = indexPath.row
-        print("depois: ", deleteIndex)
         return cell
     }
     
