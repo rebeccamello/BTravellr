@@ -19,7 +19,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
     init(trip: Trip) {
         self.trip = trip
         super.init(nibName: nil, bundle: nil)
-        let img = (trip.tripPhotos?.allObjects as? [Images])
+        let img = (trip.tripPhotos?.array as? [Images])
         photos = img ?? []
         imgs = photos.compactMap{ //mapeia um array em outro, excluindo todos que dao nill
             guard let data = $0.img else{return nil}

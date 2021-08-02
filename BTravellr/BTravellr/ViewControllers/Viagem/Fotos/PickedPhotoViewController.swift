@@ -15,13 +15,14 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     var deleteIndex = 0
     var imageArray = [UIImage]()
     var imageDataArray = [Images]()
+    var counter = 0
     
     weak var photosDelegate: PickedPhotoDelegate?
 
     init(trip: Trip) {
         self.trip = trip
         super.init(nibName: nil, bundle: nil)
-        let img = (trip.tripPhotos?.allObjects as? [Images])
+        let img = (trip.tripPhotos?.array as? [Images])
         imageDataArray = img ?? []
         imageArray = imageDataArray.compactMap{ //mapeia um array em outro, excluindo todos que dao nill
             guard let data = $0.img else{return nil}
@@ -71,8 +72,9 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FullImageCell
         cell.imgView.image = imageArray[indexPath.row]
+        print("antes: ", deleteIndex)
         deleteIndex = indexPath.row
-        print(deleteIndex)
+        print("depois: ", deleteIndex)
         return cell
     }
     
@@ -84,19 +86,6 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         collectionView.collectionViewLayout.invalidateLayout()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        let offset = collectionView.contentOffset
-        let width = collectionView.bounds.size.width
-        let index = round(offset.x/width)
-        let newOffset = CGPoint(x: index*size.width, y: offset.y)
-        collectionView.setContentOffset(newOffset, animated: false)
-        
-        coordinator.animate(alongsideTransition: {(context) in
-            self.collectionView.reloadData()
-            self.collectionView.setContentOffset(newOffset, animated: false)
-        }, completion: nil)
-    }
     
     override func viewDidLayoutSubviews() {
         collectionView.scrollToItem(at: imageIndex, at: .left, animated: false)
