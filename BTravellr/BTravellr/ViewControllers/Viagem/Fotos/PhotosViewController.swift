@@ -52,7 +52,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 115, height: 115) // tamanho das células
+        layout.itemSize = CGSize(width: 117, height: 117) // tamanho das células
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
