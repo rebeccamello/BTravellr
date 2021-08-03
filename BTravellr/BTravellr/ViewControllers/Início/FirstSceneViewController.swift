@@ -34,7 +34,7 @@ class FirstSceneViewController: UIViewController, UICollectionViewDelegate, UICo
     
     private lazy var frc: NSFetchedResultsController<Trip> = {
         let fetchRequest: NSFetchRequest<Trip> = Trip.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Trip.name, ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Trip.name, ascending: true)]
 
         let frc = NSFetchedResultsController<Trip>(fetchRequest: fetchRequest,
                                                     managedObjectContext: coreData.mainContext,

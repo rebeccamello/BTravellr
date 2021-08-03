@@ -16,6 +16,8 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
     var imageArray = [UIImage]()
     var imageDataArray = [Images]()
     var counter = 0
+    var lastDeceleratingOffset: CGFloat = 0
+    var dragingOffset: CGFloat = 0
     
     weak var photosDelegate: PickedPhotoDelegate?
 
@@ -76,6 +78,18 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        deleteIndex = indexPath.row
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        updateOffset(offset: &dragingOffset, scrollView: scrollView)
+    }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        updateOffset(offset: &lastDeceleratingOffset, scrollView: scrollView)
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else{return}
@@ -83,7 +97,6 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         flowLayout.invalidateLayout()
         collectionView.collectionViewLayout.invalidateLayout()
     }
-    
     
     override func viewDidLayoutSubviews() {
         collectionView.scrollToItem(at: imageIndex, at: .left, animated: false)
@@ -114,6 +127,21 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.95).isActive = true
+    }
+    
+    func didOffsetChanged(offset: CGFloat, toPrevious: Bool){
+        let minimumScrollValue = self.collectionView.frame.size.width * 0.4
+        let previousOffset: CGFloat = toPrevious ? minimumScrollValue : 0
+        let contentIndex = Int(round(offset - previousOffset) / minimumScrollValue)
+        deleteIndex = abs(contentIndex < imageArray.count ? contentIndex : imageArray.count - 1)
+        
+        collectionView.scrollToItem(at: IndexPath(item: deleteIndex, section: 0), at: .centeredHorizontally, animated: true)
+    }
+    
+    func updateOffset(offset: inout CGFloat, scrollView: UIScrollView){
+        let toPrevious: Bool = scrollView.contentOffset.x < offset
+        didOffsetChanged(offset: scrollView.contentOffset.x, toPrevious: toPrevious)
+        offset = scrollView.contentOffset.x
     }
     
 }
