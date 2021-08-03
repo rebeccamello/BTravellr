@@ -24,7 +24,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     var trip: Trip?
     weak var delegate: NewTripViewControllerDelegate?
     weak var delegate2: TripViewControllerDelegate?
-    let textos = ["Nome", "Destino", "Ida", "Volta"]
+    let textos = ["Nome da viagem", "Destino", "Ida", "Volta"]
     var barBut: UIBarButtonItem?
     var barBut2: UIBarButtonItem?
     var type: ViewControllerType
