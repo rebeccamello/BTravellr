@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class PickedPhotoViewController: UIViewController, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -42,8 +43,6 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2193259299, green: 0.719204247, blue: 0.7399962544, alpha: 1)
         
-//        view.addSubview(imgView)
-        
         let deletePhoto = UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(actDelete))
         navigationItem.rightBarButtonItems = [deletePhoto]
         
@@ -57,11 +56,9 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         collectionView.register(FullImageCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         collectionView.backgroundColor = .clear
-//        collectionView.scrollToItem(at: imageIndex, at: .left, animated: true)
         view.addSubview(collectionView)
-//        collectionView.autoresizingMask = tru
         
         setConstraints()
     }
@@ -126,13 +123,13 @@ class PickedPhotoViewController: UIViewController, UINavigationControllerDelegat
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: view.bounds.height*0.95).isActive = true
+        collectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6).isActive = true
     }
     
     func didOffsetChanged(offset: CGFloat, toPrevious: Bool){
-        let minimumScrollValue = self.collectionView.frame.size.width * 0.4
+        let minimumScrollValue = self.collectionView.frame.size.width * 0.7
         let previousOffset: CGFloat = toPrevious ? minimumScrollValue : 0
-        let contentIndex = Int(round(offset - previousOffset) / minimumScrollValue)
+        let contentIndex = Int(round((offset - previousOffset) / minimumScrollValue))
         deleteIndex = abs(contentIndex < imageArray.count ? contentIndex : imageArray.count - 1)
         
         collectionView.scrollToItem(at: IndexPath(item: deleteIndex, section: 0), at: .centeredHorizontally, animated: true)
