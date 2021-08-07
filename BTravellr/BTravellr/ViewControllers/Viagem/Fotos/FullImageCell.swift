@@ -62,6 +62,7 @@ class FullImageCell: UICollectionViewCell, UIScrollViewDelegate{
         return self.imgView
     }
     
+
     override func layoutSubviews() {
         super.layoutSubviews()
         scrollImg.frame = self.bounds
