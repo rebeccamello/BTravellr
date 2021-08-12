@@ -24,7 +24,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     var trip: Trip?
     weak var delegate: NewTripViewControllerDelegate?
     weak var delegate2: TripViewControllerDelegate?
-    let textos = ["Nome da viagem", "Destino", "Ida", "Volta"]
+    let textos = ["Nome da viagem", "Destino"]
     var barBut: UIBarButtonItem?
     var barBut2: UIBarButtonItem?
     var type: ViewControllerType
@@ -82,35 +82,46 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "register_cell", for: indexPath) as? TextFieldTableViewCell {
-            cell.selectionStyle = .none
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: "register_cell", for: indexPath) as? TextFieldTableViewCell {
+//            cell.selectionStyle = .none
             
             switch indexPath.row{
             case 0:
-                cell.dataTextField.text = trip?.name
-                break
+                let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.identifier, for: indexPath) as? TextFieldTableViewCell
+                cell?.placeholder = textos[indexPath.row]
+                cell?.dataTextField.tag = indexPath.row
+                cell?.dataTextField.delegate = self
+                cell?.dataTextField.text = trip?.name
+                return cell ?? UITableViewCell()
                 
             case 1:
-                cell.dataTextField.text = trip?.destination
-                break
+                let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.identifier, for: indexPath) as? TextFieldTableViewCell
+                cell?.placeholder = textos[indexPath.row]
+                cell?.dataTextField.tag = indexPath.row
+                cell?.dataTextField.delegate = self
+                cell?.dataTextField.text = trip?.destination
+                return cell ?? UITableViewCell()
                 
             case 2:
-                cell.dataTextField.text = trip?.dataIda
-                break
+                let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
+                cell?.textLabel?.text = "Ida"
+//                cell.dataTextField.text = trip?.dataIda
+                return cell ?? UITableViewCell()
                 
             case 3:
-                cell.dataTextField.text = trip?.dataVolta
-                break
+                let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
+                cell?.textLabel?.text = "Volta"
+//                cell.dataTextField.text = trip?.dataVolta
+                return cell ?? UITableViewCell()
+                
             default:
                 print("Falhou")
             }
-            cell.placeholder = textos[indexPath.row]
-            cell.dataTextField.tag = indexPath.row
-            cell.dataTextField.delegate = self
-
-            return cell
-        }
         return UITableViewCell()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     //MARK: TextView
