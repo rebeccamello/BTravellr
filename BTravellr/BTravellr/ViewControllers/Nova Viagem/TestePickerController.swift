@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TestePickerController: UIViewController, UITableViewDataSource{
+class TestePickerController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     var texto = ["Ida", "Volta"]
     
     let tableView: UITableView = {
@@ -22,9 +22,11 @@ class TestePickerController: UIViewController, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier, for: indexPath) as? DatePickerCell
-        cell?.textLabel?.text = texto[indexPath.row]
-        return cell ?? UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerCell", for: indexPath) as? DatePickerCell else{
+            return UITableViewCell()
+        }
+        cell.textLabel?.text = texto[indexPath.row]
+        return cell
     }
     
     override func viewDidLoad() {
@@ -32,7 +34,7 @@ class TestePickerController: UIViewController, UITableViewDataSource{
         
         view.addSubview(tableView)
         tableView.dataSource = self
-        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "DatePickerCell")
+        tableView.register(DatePickerCell.self, forCellReuseIdentifier: "DatePickerCell")
         
         // #3
         NSLayoutConstraint.activate([

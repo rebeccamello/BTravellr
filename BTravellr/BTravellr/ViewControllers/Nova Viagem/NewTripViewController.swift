@@ -105,12 +105,14 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Ida"
+//                cell?.picker.date = trip?.dataIda
 //                cell.dataTextField.text = trip?.dataIda
                 return cell ?? UITableViewCell()
                 
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Volta"
+//                cell?.picker.date = trip?.dataVolta
 //                cell.dataTextField.text = trip?.dataVolta
                 return cell ?? UITableViewCell()
                 
