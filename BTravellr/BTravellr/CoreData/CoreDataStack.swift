@@ -49,7 +49,7 @@ class CoreDataStack {
     }
     
     //MARK: Trip
-    func createTrip(name: String, destination: String, dataIda: String, dataVolta: String) throws -> Trip{
+    func createTrip(name: String, destination: String, dataIda: Date, dataVolta: Date) throws -> Trip{
         let trip = Trip(context: mainContext)
         trip.name = name
         trip.destination = destination

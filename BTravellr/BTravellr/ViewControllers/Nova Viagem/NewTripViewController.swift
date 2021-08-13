@@ -7,13 +7,6 @@
 
 import UIKit
 
-struct TripStruct{
-    var name: String
-    var destination: String
-    var dataIda: String
-    var dataVolta: String
-}
-
 enum ViewControllerType{
     case firstView
     case editView
@@ -54,7 +47,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         if let tripInfo = trip {
             self.trip = tripInfo
         } else{
-            self.trip = try? CoreDataStack.shared.createTrip(name: "", destination: "", dataIda: "", dataVolta: "")
+            self.trip = try? CoreDataStack.shared.createTrip(name: "", destination: "", dataIda: Date(), dataVolta: Date())
         }
         
         super.init(nibName: nil, bundle: nil)
@@ -66,8 +59,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     
     var nameField: String = ""
     var destinationField: String = ""
-    var dataIdaField: String = ""
-    var dataVoltaField: String = ""
+    var dataIdaField = Date()
+    var dataVoltaField = Date()
     
     //MARK: TableView
     let tableView: UITableView = {
@@ -105,15 +98,15 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Ida"
-//                cell?.picker.date = trip?.dataIda
-//                cell.dataTextField.text = trip?.dataIda
+                cell?.picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+                cell?.picker.date = trip?.dataIda ?? Date()
                 return cell ?? UITableViewCell()
                 
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Volta"
-//                cell?.picker.date = trip?.dataVolta
-//                cell.dataTextField.text = trip?.dataVolta
+                cell?.picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+                cell?.picker.date = trip?.dataVolta ?? Date()
                 return cell ?? UITableViewCell()
                 
             default:
@@ -146,11 +139,24 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
         case TextFieldData.destination.rawValue:
             destinationField = textField.text ?? ""
             
-        case TextFieldData.dataIda.rawValue:
-            dataIdaField = textField.text ?? ""
+        default:
+            break
+        }
+    }
+    
+    //MARK: DatePickerChanged
+    enum DatePickerDates: Int{
+        case ida = 0
+        case volta = 1
+    }
+    
+    @objc func datePickerValueChanged(_ sender: UIDatePicker){
+        switch sender.tag{
+        case DatePickerDates.ida.rawValue:
+            dataIdaField = sender.date
             
-        case TextFieldData.dataVolta.rawValue:
-            dataVoltaField = textField.text ?? ""
+        case DatePickerDates.volta.rawValue:
+            dataVoltaField = sender.date
         default:
             break
         }
@@ -219,7 +225,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     //MARK: Funcoes dos botoes
     @objc func cancelTrip() -> Void{
         guard let trip = self.trip else{return}
-        if !nameField.isEmpty && nameField != "" && !destinationField.isEmpty && destinationField != "" && !dataIdaField.isEmpty && dataIdaField != "" && !dataVoltaField.isEmpty && dataVoltaField != "" {
+        if !nameField.isEmpty && nameField != "" && !destinationField.isEmpty && destinationField != "" {
             try? CoreDataStack.shared.deleteTrip(trip: trip)
         }
         self.dismiss(animated: true, completion: nil)
@@ -233,7 +239,7 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     
     @objc func actSave(){
         guard let trip = self.trip else{return}
-        if nameField == "" && destinationField == "" && dataIdaField == "" && dataVoltaField == ""{
+        if nameField == "" && destinationField == ""{
             try? CoreDataStack.shared.deleteTrip(trip: trip)
             return
         }
@@ -257,13 +263,13 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             trip?.destination = destinationField
         }
         
-        if !dataIdaField.isEmpty && dataIdaField != "" {
+//        if !dataIdaField.isEmpty && dataIdaField != "" {
             trip?.dataIda = dataIdaField
-        }
+//        }
         
-        if !dataVoltaField.isEmpty && dataVoltaField != "" {
+//        if !dataVoltaField.isEmpty && dataVoltaField != "" {
             trip?.dataVolta = dataVoltaField
-        }
+//        }
         delegate2?.reloadData()
         try? CoreDataStack.shared.save()
         self.dismiss(animated: true, completion: nil)

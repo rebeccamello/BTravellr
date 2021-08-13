@@ -249,7 +249,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    //MARK: Editar 
+    //MARK: Editar
     @objc func actEdit() -> Void {
         let root = NewTripViewController(trip: trip, type: .editView)
         let vc = UINavigationController(rootViewController: root)
@@ -329,8 +329,11 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setInputs(){
         inputName.text = trip.name
         inputDestination.text = trip.destination
-        inputDataIda.text = trip.dataIda
-        inputDataVolta.text = trip.dataVolta
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        inputDataIda.text = dateFormatter.string(from: trip.dataIda ?? Date())
+        inputDataVolta.text = dateFormatter.string(from: trip.dataVolta ?? Date())
     }
 }
 
