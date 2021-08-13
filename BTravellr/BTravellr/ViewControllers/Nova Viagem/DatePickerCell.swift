@@ -23,7 +23,7 @@ class DatePickerCell: UITableViewCell {
 //            picker.heightAnchor.constraint(equalToConstant: 40),
 //            picker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             picker.widthAnchor.constraint(equalToConstant: 300),
-            picker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            picker.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
             picker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             picker.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
