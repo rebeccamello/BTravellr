@@ -329,11 +329,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setInputs(){
         inputName.text = trip.name
         inputDestination.text = trip.destination
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/YY"
-        inputDataIda.text = dateFormatter.string(from: trip.dataIda ?? Date())
-        inputDataVolta.text = dateFormatter.string(from: trip.dataVolta ?? Date())
+        inputDataIda.text = trip.dataIda
+        inputDataVolta.text = trip.dataVolta
     }
 }
 
