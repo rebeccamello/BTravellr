@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D46EA6826C6B6F200107B51 /* TestePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D46EA6726C6B6F200107B51 /* TestePickerController.swift */; };
 		9D7729F526C57B4C00A0F767 /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7729F426C57B4C00A0F767 /* DatePickerCell.swift */; };
 		9DC0DAA526A076F1005E4568 /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAA426A076F1005E4568 /* TripViewController.swift */; };
 		9DC0DAA926A08A55005E4568 /* TripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC0DAA826A08A55005E4568 /* TripTableViewCell.swift */; };
@@ -36,7 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D46EA6726C6B6F200107B51 /* TestePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestePickerController.swift; sourceTree = "<group>"; };
 		9D7729F426C57B4C00A0F767 /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		9DC0DAA426A076F1005E4568 /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TripViewController.swift; path = BTravellr/ViewControllers/Viagem/TripViewController.swift; sourceTree = SOURCE_ROOT; };
 		9DC0DAA826A08A55005E4568 /* TripTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTableViewCell.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 				9D7729F426C57B4C00A0F767 /* DatePickerCell.swift */,
 				9DE6F5E8269CBB9A0027438C /* NewTripViewController.swift */,
 				9DC0DAD926AAFF8A005E4568 /* NewTripViewControllerDelegate.swift */,
-				9D46EA6726C6B6F200107B51 /* TestePickerController.swift */,
 			);
 			path = "Nova Viagem";
 			sourceTree = "<group>";
@@ -283,7 +280,6 @@
 				9DE6F5D0269C92160027438C /* FirstSceneViewController.swift in Sources */,
 				9DC0DAED26B311EF005E4568 /* PickedPhotoViewController.swift in Sources */,
 				9DC0DADA26AAFF8A005E4568 /* NewTripViewControllerDelegate.swift in Sources */,
-				9D46EA6826C6B6F200107B51 /* TestePickerController.swift in Sources */,
 				9DC0DABE26A75533005E4568 /* Model.xcdatamodeld in Sources */,
 				9DC0DAC126A757ED005E4568 /* CoreDataStack.swift in Sources */,
 				9DC0DAA926A08A55005E4568 /* TripTableViewCell.swift in Sources */,
