@@ -201,7 +201,8 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     func initTableView(){
         view.addSubview(tableView)
         tableView.dataSource = self
-        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "register_cell")
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "textField")
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: "DatePickerCell")
         tableView.backgroundColor = .systemBackground
         
         // #3
