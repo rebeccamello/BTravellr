@@ -34,6 +34,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var inputDestination = UILabel()
     var inputDataIda = UILabel()
     var inputDataVolta = UILabel()
+    var inputHoraIda = UILabel()
+    var inputHoraVolta = UILabel()
     var trip: Trip
     
     init(tripInfos: Trip) {
@@ -75,6 +77,8 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(inputDestination)
         view.addSubview(inputDataIda)
         view.addSubview(inputDataVolta)
+        view.addSubview(inputHoraIda)
+        view.addSubview(inputHoraVolta)
         
         // configurando botoes
         but.setImage(UIImage(named: "plus.circle"), for: .normal)
@@ -249,7 +253,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    //MARK: Editar 
+    //MARK: Editar
     @objc func actEdit() -> Void {
         let root = NewTripViewController(trip: trip, type: .editView)
         let vc = UINavigationController(rootViewController: root)
@@ -315,22 +319,44 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         inputDataIda.translatesAutoresizingMaskIntoConstraints = false
         inputDataIda.leadingAnchor.constraint(equalTo: idaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataIda.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
-        inputDataIda.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputDataIda.widthAnchor.constraint(equalToConstant: 72).isActive = true
         inputDataIda.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        inputHoraIda.translatesAutoresizingMaskIntoConstraints = false
+        inputHoraIda.leadingAnchor.constraint(equalTo: inputDataIda.trailingAnchor, constant: 10).isActive = true
+        inputHoraIda.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
+        inputHoraIda.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        inputHoraIda.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputDataVolta.translatesAutoresizingMaskIntoConstraints = false
         inputDataVolta.leadingAnchor.constraint(equalTo: voltaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataVolta.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
-        inputDataVolta.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        inputDataVolta.widthAnchor.constraint(equalToConstant: 72).isActive = true
         inputDataVolta.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        inputHoraVolta.translatesAutoresizingMaskIntoConstraints = false
+        inputHoraVolta.leadingAnchor.constraint(equalTo: inputDataVolta.trailingAnchor, constant: 10).isActive = true
+        inputHoraVolta.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
+        inputHoraVolta.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        inputHoraVolta.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     //MARK: Setando os inputs
     func setInputs(){
         inputName.text = trip.name
         inputDestination.text = trip.destination
-        inputDataIda.text = trip.dataIda
-        inputDataVolta.text = trip.dataVolta
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        inputDataIda.text = dateFormatter.string(from: trip.dataIda ?? Date())
+        inputDataVolta.text = dateFormatter.string(from: trip.dataVolta ?? Date())
+        
+        let calendar = Calendar.current
+        let horaIda = " -   \(calendar.component(.hour, from: trip.dataIda ?? Date()))h" + "\(calendar.component(.minute, from: trip.dataIda ?? Date()))"
+        inputHoraIda.text = horaIda
+        
+        let horaVolta = " -   \(calendar.component(.hour, from: trip.dataVolta ?? Date()))h" + "\(calendar.component(.minute, from: trip.dataVolta ?? Date()))"
+        inputHoraVolta.text = horaVolta
     }
 }
 

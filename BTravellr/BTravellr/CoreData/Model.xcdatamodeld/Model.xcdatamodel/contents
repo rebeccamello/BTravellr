@@ -18,8 +18,8 @@
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES" codeGenerationType="class">
         <attribute name="coverImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
-        <attribute name="dataIda" optional="YES" attributeType="String"/>
-        <attribute name="dataVolta" optional="YES" attributeType="String"/>
+        <attribute name="dataIda" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dataVolta" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="destination" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="tripBagItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bag" inverseName="trips" inverseEntity="Bag"/>
@@ -28,10 +28,10 @@
         <relationship name="tripPhotos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Images" inverseName="trips" inverseEntity="Images"/>
     </entity>
     <elements>
-        <element name="Trip" positionX="-63" positionY="-18" width="128" height="164"/>
         <element name="Bag" positionX="-45" positionY="27" width="128" height="59"/>
-        <element name="Notes" positionX="-27" positionY="54" width="128" height="59"/>
-        <element name="Images" positionX="-9" positionY="72" width="128" height="59"/>
         <element name="CoverImage" positionX="9" positionY="90" width="128" height="59"/>
+        <element name="Images" positionX="-9" positionY="72" width="128" height="59"/>
+        <element name="Notes" positionX="-27" positionY="54" width="128" height="59"/>
+        <element name="Trip" positionX="-63" positionY="-18" width="128" height="164"/>
     </elements>
 </model>

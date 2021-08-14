@@ -8,6 +8,7 @@
 import UIKit
 
 class TextFieldTableViewCell: UITableViewCell {
+    static var identifier = "textField"
     
     let dataTextField: UITextField = {
             let textField = UITextField()
