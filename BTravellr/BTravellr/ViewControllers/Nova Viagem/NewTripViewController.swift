@@ -98,14 +98,14 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Ida"
-                cell?.picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+                cell?.picker.addTarget(self, action: #selector(datePickerIdaValueChanged(_:)), for: .valueChanged)
                 cell?.picker.date = trip?.dataIda ?? Date()
                 return cell ?? UITableViewCell()
                 
             case 3:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DatePickerCell.identifier,for: indexPath) as? DatePickerCell
                 cell?.textLabel?.text = "Volta"
-                cell?.picker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+                cell?.picker.addTarget(self, action: #selector(datePickerVoltaValueChanged(_:)), for: .valueChanged)
                 cell?.picker.date = trip?.dataVolta ?? Date()
                 return cell ?? UITableViewCell()
                 
@@ -123,8 +123,6 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     enum TextFieldData: Int {
         case name = 0
         case destination = 1
-        case dataIda = 2
-        case dataVolta = 3
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField){
@@ -145,21 +143,12 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
     }
     
     //MARK: DatePickerChanged
-    enum DatePickerDates: Int{
-        case ida = 0
-        case volta = 1
+    @objc func datePickerIdaValueChanged(_ picker: UIDatePicker){
+        dataIdaField = picker.date
     }
     
-    @objc func datePickerValueChanged(_ sender: UIDatePicker){
-        switch sender.tag{
-        case DatePickerDates.ida.rawValue:
-            dataIdaField = sender.date
-            
-        case DatePickerDates.volta.rawValue:
-            dataVoltaField = sender.date
-        default:
-            break
-        }
+    @objc func datePickerVoltaValueChanged(_ picker: UIDatePicker){
+        dataVoltaField = picker.date
     }
 
     //MARK: DidLoad
@@ -263,13 +252,9 @@ class NewTripViewController: UIViewController, UITableViewDataSource, UITextFiel
             trip?.destination = destinationField
         }
         
-//        if !dataIdaField.isEmpty && dataIdaField != "" {
-            trip?.dataIda = dataIdaField
-//        }
-        
-//        if !dataVoltaField.isEmpty && dataVoltaField != "" {
-            trip?.dataVolta = dataVoltaField
-//        }
+        trip?.dataIda = dataIdaField
+        trip?.dataVolta = dataVoltaField
+
         delegate2?.reloadData()
         try? CoreDataStack.shared.save()
         self.dismiss(animated: true, completion: nil)
