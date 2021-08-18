@@ -52,7 +52,7 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 117, height: 117) // tamanho das células
+        layout.itemSize = CGSize(width: view.bounds.width*0.315, height: view.bounds.width*0.315)
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -148,8 +148,8 @@ class PhotosViewController: UIViewController, UINavigationControllerDelegate, UI
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 4).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -4).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     //MARK: CollectionView

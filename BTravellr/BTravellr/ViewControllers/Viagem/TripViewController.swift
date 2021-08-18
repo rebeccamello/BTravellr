@@ -319,7 +319,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         inputDataIda.translatesAutoresizingMaskIntoConstraints = false
         inputDataIda.leadingAnchor.constraint(equalTo: idaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataIda.topAnchor.constraint(equalTo: localLabel.bottomAnchor, constant: 10).isActive = true
-        inputDataIda.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        inputDataIda.widthAnchor.constraint(equalToConstant: 68).isActive = true
         inputDataIda.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputHoraIda.translatesAutoresizingMaskIntoConstraints = false
@@ -331,7 +331,7 @@ class TripViewController: UIViewController, UITableViewDataSource, UITableViewDe
         inputDataVolta.translatesAutoresizingMaskIntoConstraints = false
         inputDataVolta.leadingAnchor.constraint(equalTo: voltaLabel.trailingAnchor, constant: 10).isActive = true
         inputDataVolta.topAnchor.constraint(equalTo: idaLabel.bottomAnchor, constant: 10).isActive = true
-        inputDataVolta.widthAnchor.constraint(equalToConstant: 72).isActive = true
+        inputDataVolta.widthAnchor.constraint(equalToConstant: 68).isActive = true
         inputDataVolta.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         inputHoraVolta.translatesAutoresizingMaskIntoConstraints = false
